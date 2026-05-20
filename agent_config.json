@@ -1,0 +1,14 @@
+{
+  "feeds": [
+    "https://news.google.com/rss/search?q=stock%20market&hl=en-US&gl=US&ceid=US:en",
+    "https://news.google.com/rss/search?q=S%26P%20500%20OR%20NASDAQ&hl=en-US&gl=US&ceid=US:en",
+    "https://news.google.com/rss/search?q=earnings%20report%20stocks&hl=en-US&gl=US&ceid=US:en"
+  ],
+  "max_items": 8,
+  "output_dir": "posts",
+  "webhook_url_env": "NEWS_WEBHOOK_URL",
+  "insights_enabled": true,
+  "insights_max_points": 4,
+  "openai_api_key_env": "OPENAI_API_KEY",
+  "openai_model": "gpt-4.1-mini"
+}

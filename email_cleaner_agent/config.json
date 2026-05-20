@@ -1,0 +1,29 @@
+{
+  "report_email": "pranayshah465@gmail.com",
+  "look_back_hours": 876000,
+  "blocklist": [
+    "newsletter@example.com",
+    "noreply@promotions.com",
+    "deals@shop.com"
+  ],
+  "ai_detection": {
+    "enabled": true,
+    "max_emails_per_run": 50
+  },
+  "groq_api_key": "",
+  "fake_email_detection": {
+    "enabled": true
+  },
+  "whitelist_domains": [
+    "jainam.in",
+    "naukri.com",
+    "communications.bankofindia.co.in",
+    "alerts.bankofindia.co.in",
+    "email.openai.com",
+    "minis.naukri.com",
+    "groww.in",
+    "money.hindustantimes.com",
+    "pharmeasy.in",
+    "jio.com"
+  ]
+}

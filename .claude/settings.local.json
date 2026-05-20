@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(cd d:\\\\Ai_Projects\\\\AI_Agent\\\\email_cleaner_agent; $ScriptDir = \"d:\\\\Ai_Projects\\\\AI_Agent\\\\email_cleaner_agent\"; $PythonExe = \\(Get-Command python -ErrorAction Stop\\).Source; $ScriptPath = Join-Path $ScriptDir \"email_cleaner.py\"; $Action = New-ScheduledTaskAction -Execute $PythonExe -Argument \"`\"$ScriptPath`\"\" -WorkingDirectory $ScriptDir; $Trigger = New-ScheduledTaskTrigger -Daily -At \"8:00AM\"; $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit \\(New-TimeSpan -Minutes 15\\) -StartWhenAvailable -RunOnlyIfNetworkAvailable; Register-ScheduledTask -TaskName \"DailyEmailCleaner\" -Action $Action -Trigger $Trigger -Settings $Settings -Description \"Daily AI-powered Gmail junk cleaner\" -RunLevel Highest -Force)",
+      "PowerShell(python --version)",
+      "PowerShell(pip --version)",
+      "PowerShell(pip install flask flask-cors requests yfinance pandas numpy 2>&1)",
+      "PowerShell(cd \"d:\\\\Ai_Projects\\\\Trading_Simulator\"; Start-Process python -ArgumentList \"server.py\" -WorkingDirectory \"d:\\\\Ai_Projects\\\\Trading_Simulator\" -WindowStyle Normal; Start-Sleep -Seconds 4; try { $r = Invoke-WebRequest -Uri \"http://localhost:5000/api/health\" -TimeoutSec 5 -UseBasicParsing; $r.Content } catch { \"ERROR: $_\" })",
+      "PowerShell(Stop-Process -Id 19132 -Force -ErrorAction SilentlyContinue)",
+      "PowerShell(netstat -ano)",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:5000/api/option-chain/NIFTY\" -UseBasicParsing -TimeoutSec 25; $r.Content } catch { \"Server down or error: $_\" })",
+      "PowerShell(Get-ChildItem -Path \"d:\\\\Ai_Projects\\\\AI_Agent\" -Directory | Where-Object { $_.Name -ne \".venv\" -and $_.Name -ne \".claude\" } | Select-Object Name)",
+      "PowerShell(Get-Process python)",
+      "PowerShell(Stop-Process -Force -ErrorAction SilentlyContinue)",
+      "PowerShell(Get-ScheduledTask -TaskName \"EmailCleanerDailyAgent\")",
+      "PowerShell(Get-ScheduledTaskInfo)"
+    ]
+  }
+}

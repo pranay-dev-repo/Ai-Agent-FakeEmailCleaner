@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+
+# Credentials — never commit these
+email_cleaner_agent/token.json
+email_cleaner_agent/credentials.json
+credentials.json
+
+# Logs & output
+email_cleaner_agent/cleaner.log
+email_cleaner_agent/scheduler.log
+inbox_domains.txt
