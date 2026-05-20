@@ -24,7 +24,7 @@ jobs:
 
       - name: Run stock news agent
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           NEWS_WEBHOOK_URL: ${{ secrets.NEWS_WEBHOOK_URL }}
         run: python -u main.py --config agent_config.json --publish
 

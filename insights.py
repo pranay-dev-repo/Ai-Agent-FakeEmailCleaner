@@ -65,7 +65,7 @@ def fallback_insights(items: list[NewsItem], max_points: int = 4) -> list[str]:
 def generate_ai_insights(
     items: list[NewsItem],
     api_key: str,
-    model: str = "gpt-4.1-mini",
+    model: str = "llama-3.3-70b-versatile",
     max_points: int = 4,
     timeout_seconds: int = 25,
 ) -> list[str]:
@@ -82,32 +82,22 @@ def generate_ai_insights(
 
     try:
         response = requests.post(
-            "https://api.openai.com/v1/responses",
+            "https://api.groq.com/openai/v1/chat/completions",
             headers={
                 "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json",
             },
             json={
                 "model": model,
-                "input": prompt,
+                "messages": [{"role": "user", "content": prompt}],
                 "temperature": 0.3,
-                "max_output_tokens": 300,
+                "max_tokens": 300,
             },
             timeout=timeout_seconds,
         )
         response.raise_for_status()
-        data = response.json()
-
-        output_text = ""
-        if isinstance(data.get("output_text"), str) and data["output_text"].strip():
-            output_text = data["output_text"].strip()
-        else:
-            output = data.get("output", [])
-            for item in output:
-                for content in item.get("content", []):
-                    if content.get("type") == "output_text":
-                        output_text += content.get("text", "")
-
+        output_text = response.json()["choices"][0]["message"]["content"].strip()
+        output_text = output_text.replace("```json", "").replace("```", "").strip()
         parsed = json.loads(output_text)
         if isinstance(parsed, list):
             cleaned = [str(x).strip() for x in parsed if str(x).strip()]
@@ -119,5 +109,5 @@ def generate_ai_insights(
     return fallback_insights(items, max_points=max_points)
 
 
-def load_openai_key(env_var_name: str = "OPENAI_API_KEY") -> str:
+def load_openai_key(env_var_name: str = "GROQ_API_KEY") -> str:
     return os.getenv(env_var_name, "").strip()

@@ -9,6 +9,6 @@
   "webhook_url_env": "NEWS_WEBHOOK_URL",
   "insights_enabled": true,
   "insights_max_points": 4,
-  "openai_api_key_env": "OPENAI_API_KEY",
-  "openai_model": "gpt-4.1-mini"
+  "openai_api_key_env": "GROQ_API_KEY",
+  "openai_model": "llama-3.3-70b-versatile"
 }
