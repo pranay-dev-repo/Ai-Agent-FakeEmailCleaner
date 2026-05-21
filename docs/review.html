@@ -76,11 +76,41 @@
 
 </div>
 <script>
-const REPO     = 'pranay-dev-repo/Ai-Agent-FakeEmailCleaner';
-const JSON_URL = `https://raw.githubusercontent.com/${REPO}/main/email_cleaner_agent/domain_review.json`;
-const WF_URL   = `https://api.github.com/repos/${REPO}/actions/workflows/manage_email_domains.yml/dispatches`;
+const REPO        = 'pranay-dev-repo/Ai-Agent-FakeEmailCleaner';
+const JSON_URL    = `https://raw.githubusercontent.com/${REPO}/main/email_cleaner_agent/domain_review.json`;
+const SESSION_URL = `https://raw.githubusercontent.com/${REPO}/main/docs/session.json`;
+const WF_URL      = `https://api.github.com/repos/${REPO}/actions/workflows/manage_email_domains.yml/dispatches`;
 
-// ── Token ────────────────────────────────────────────────────────────────────
+// ── Magic link auth ──────────────────────────────────────────────────────────
+function hexToBytes(hex) {
+  const b = new Uint8Array(hex.length / 2);
+  for (let i = 0; i < b.length; i++) b[i] = parseInt(hex.substr(i * 2, 2), 16);
+  return b;
+}
+
+async function getPatFromMagicLink() {
+  const keyHex = new URLSearchParams(window.location.search).get('t');
+  if (!keyHex || keyHex.length < 8) return null;
+  try {
+    const r = await fetch(SESSION_URL + '?t=' + Date.now());
+    if (!r.ok) return null;
+    const session = await r.json();
+    if (!session.enc || !session.expires_at) return null;
+    if (new Date(session.expires_at) < new Date()) {
+      showStatus('Session link expired. Wait for the next daily report email.', false);
+      return null;
+    }
+    const key = hexToBytes(keyHex);
+    const enc = hexToBytes(session.enc);
+    const dec = new Uint8Array(enc.length);
+    for (let i = 0; i < enc.length; i++) dec[i] = enc[i] ^ key[i % key.length];
+    return new TextDecoder().decode(dec);
+  } catch (e) {
+    return null;
+  }
+}
+
+// ── Token (fallback manual entry) ────────────────────────────────────────────
 function saveToken() {
   const v = document.getElementById('pat').value.trim();
   if (!v) return;
@@ -101,7 +131,16 @@ function showTokenSaved() {
 
 // ── Init ─────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('gh_pat')) showTokenSaved();
+  const hasMagicLink = !!new URLSearchParams(window.location.search).get('t');
+  if (hasMagicLink) {
+    document.getElementById('token-card').style.display = 'none';
+    const s = document.getElementById('status');
+    s.textContent = 'Authenticated via email link.';
+    s.className = 'ok';
+    s.style.display = 'block';
+  } else if (localStorage.getItem('gh_pat')) {
+    showTokenSaved();
+  }
   load();
 });
 
@@ -181,8 +220,8 @@ function showStatus(msg, ok) {
 }
 
 async function submit(action) {
-  const pat = localStorage.getItem('gh_pat');
-  if (!pat) { showStatus('Save your GitHub token first.', false); return; }
+  const pat = await getPatFromMagicLink() || localStorage.getItem('gh_pat');
+  if (!pat) { showStatus('No auth token. Open the link from your email report.', false); return; }
 
   const domains = getSelected();
   if (!domains.length) { showStatus('No domains selected.', false); return; }

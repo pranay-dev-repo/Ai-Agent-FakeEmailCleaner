@@ -32,17 +32,18 @@ jobs:
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GITHUB_WORKFLOW_PAT: ${{ secrets.GITHUB_WORKFLOW_PAT }}
         run: python -u email_cleaner_agent/daily_agent.py
 
-      - name: Commit updated spam domain list
+      - name: Commit updated files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add email_cleaner_agent/bulk_trash.py email_cleaner_agent/domain_review.json
+          git add email_cleaner_agent/bulk_trash.py email_cleaner_agent/domain_review.json docs/session.json
           if ! git diff --cached --quiet; then
             git commit -m "chore: auto-update spam domain list [skip ci]"
             git pull --rebase origin main
             git push
           else
-            echo "No spam domain updates to commit."
+            echo "No updates to commit."
           fi

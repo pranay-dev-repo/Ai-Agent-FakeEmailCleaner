@@ -18,12 +18,15 @@ import time
 import subprocess
 import sys
 import base64
+import hashlib
+import secrets
 import urllib.parse
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from collections import Counter
+from itertools import cycle
 from pathlib import Path
 
 from google.oauth2.credentials import Credentials
@@ -350,6 +353,27 @@ def _make_mailto(to_email: str, subject: str, body: str = '') -> str:
     return f'mailto:{to_email}?{qs}'
 
 
+DOCS_DIR = SCRIPT_DIR.parent / 'docs'
+SESSION_FILE = DOCS_DIR / 'session.json'
+REVIEW_BASE_URL = 'https://pranay-dev-repo.github.io/Ai-Agent-FakeEmailCleaner/review.html'
+
+
+def generate_magic_session(pat: str) -> str:
+    """XOR-encrypts PAT with a random key, writes docs/session.json, returns session URL."""
+    key = secrets.token_bytes(32)
+    pat_bytes = pat.encode()
+    encrypted = bytes(a ^ b for a, b in zip(pat_bytes, cycle(key)))
+    expires = (datetime.now(timezone.utc) + timedelta(hours=25)).isoformat(timespec='seconds')
+    payload = {
+        'enc': encrypted.hex(),
+        'expires_at': expires,
+        'key_hash': hashlib.sha256(key).hexdigest()[:16],
+    }
+    DOCS_DIR.mkdir(parents=True, exist_ok=True)
+    SESSION_FILE.write_text(json.dumps(payload) + '\n', encoding='utf-8')
+    return f'{REVIEW_BASE_URL}?t={key.hex()}'
+
+
 def process_domain_management_emails(service, config: dict) -> tuple:
     """Read [EMAIL-CLEANER] emails, apply whitelist/blacklist actions, mark read."""
     print('[0/5] Checking for domain management emails...', flush=True)
@@ -439,6 +463,19 @@ def send_report(service, to_email: str, stats: dict):
 
     run_time = datetime.now().strftime('%Y-%m-%d %H:%M')
 
+    # Generate magic link if PAT is available
+    workflow_pat = os.environ.get('GITHUB_WORKFLOW_PAT', '')
+    if workflow_pat:
+        try:
+            review_url = generate_magic_session(workflow_pat)
+            print(f'  Magic link session generated (expires 25h)', flush=True)
+        except Exception as e:
+            print(f'  Magic link generation failed: {e} — using plain URL', flush=True)
+            review_url = REVIEW_BASE_URL
+    else:
+        review_url = REVIEW_BASE_URL
+        print('  GITHUB_WORKFLOW_PAT not set — using plain review URL', flush=True)
+
     new_spam_rows = ''.join(
         f'<tr><td>{d}</td></tr>' for d in sorted(stats['new_spam_domains'])
     ) or '<tr><td><i>None</i></td></tr>'
@@ -450,7 +487,7 @@ def send_report(service, to_email: str, stats: dict):
     to_email = stats.get('report_email', to_email)
     review_domain_list = sorted(stats['review_domains'])
     review_btn = (
-        '<a href="https://pranay-dev-repo.github.io/Ai-Agent-FakeEmailCleaner/review.html"'
+        f'<a href="{review_url}"'
         ' style="display:inline-block;background:#1a73e8;color:#fff;padding:9px 20px;'
         'border-radius:5px;text-decoration:none;font-size:14px;font-weight:bold">'
         'Review &amp; Manage Domains</a>'
