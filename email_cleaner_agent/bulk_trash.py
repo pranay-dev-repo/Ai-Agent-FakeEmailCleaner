@@ -48,7 +48,6 @@ DOMAINS_TO_TRASH = [
     "daksyam.com",
     "email.citiustech.com",
     "email.microsoft.com",
-    "email.upwork.com",
     "email2.microsoft.com",
     "emaila.1mg.com",
     "emailer.idfcfirst.bank.in",
