@@ -221,6 +221,13 @@ DOMAINS_TO_TRASH = [
     "voyagerpartners.com",
     "xaltius.tech",
     "xobin.com",
+    "avencoree.com",
+    "celusion.com",
+    "eloite.in",
+    "globecapital.com",
+    "hopesforever.com",
+    "joulestowatts.com",
+    "prometheusconsulting.in",
 ]
 
 creds = Credentials(
