@@ -190,14 +190,26 @@ def run_bulk_trash(service, trash_domains: set):
     print('[4/5] Running bulk trash...', flush=True)
     total = 0
     per_domain = {}
-    for domain in sorted(trash_domains):
+    for idx, domain in enumerate(sorted(trash_domains)):
+        # Rate limit: pause every 10 domains to stay within Gmail quota
+        if idx > 0 and idx % 10 == 0:
+            time.sleep(2)
+
         msg_ids = []
         page_token = None
         while True:
             kwargs = {'userId': 'me', 'q': f'in:inbox from:@{domain}', 'maxResults': 500}
             if page_token:
                 kwargs['pageToken'] = page_token
-            result = service.users().messages().list(**kwargs).execute()
+            try:
+                result = service.users().messages().list(**kwargs).execute()
+            except HttpError as e:
+                if 'rateLimitExceeded' in str(e):
+                    print(f'  Rate limit hit, sleeping 10s...', flush=True)
+                    time.sleep(10)
+                    result = service.users().messages().list(**kwargs).execute()
+                else:
+                    raise
             msg_ids.extend([m['id'] for m in result.get('messages', [])])
             page_token = result.get('nextPageToken')
             if not page_token:
