@@ -1,7 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "PowerShell(cd d:\\\\Ai_Projects\\\\AI_Agent\\\\email_cleaner_agent; $ScriptDir = \"d:\\\\Ai_Projects\\\\AI_Agent\\\\email_cleaner_agent\"; $PythonExe = \\(Get-Command python -ErrorAction Stop\\).Source; $ScriptPath = Join-Path $ScriptDir \"email_cleaner.py\"; $Action = New-ScheduledTaskAction -Execute $PythonExe -Argument \"`\"$ScriptPath`\"\" -WorkingDirectory $ScriptDir; $Trigger = New-ScheduledTaskTrigger -Daily -At \"8:00AM\"; $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit \\(New-TimeSpan -Minutes 15\\) -StartWhenAvailable -RunOnlyIfNetworkAvailable; Register-ScheduledTask -TaskName \"DailyEmailCleaner\" -Action $Action -Trigger $Trigger -Settings $Settings -Description \"Daily AI-powered Gmail junk cleaner\" -RunLevel Highest -Force)",
+      "PowerShell(cd d:\\\\Ai_Projects\\\\AI_Agent\\\\email_cleaner_agent; $ScriptDir = \"d:\\\\Ai_Projects\\\\AI_Agent\\\\email_cleaner_agent\"; $RunnerPath = Join-Path $ScriptDir \"run_daily_agent.ps1\"; $Action = New-ScheduledTaskAction -Execute \"powershell.exe\" -Argument \"-NonInteractive -ExecutionPolicy Bypass -File `\"$RunnerPath`\"\" -WorkingDirectory $ScriptDir; $Trigger = New-ScheduledTaskTrigger -Daily -At \"7:00AM\"; $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit \\(New-TimeSpan -Minutes 30\\) -StartWhenAvailable -RunOnlyIfNetworkAvailable; Register-ScheduledTask -TaskName \"EmailCleanerDailyAgent\" -Action $Action -Trigger $Trigger -Settings $Settings -Description \"Daily Gmail domain scanner and AI-powered cleaner\" -RunLevel Highest -Force)",
       "PowerShell(python --version)",
       "PowerShell(pip --version)",
       "PowerShell(pip install flask flask-cors requests yfinance pandas numpy 2>&1)",
