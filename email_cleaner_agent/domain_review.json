@@ -1,40 +1,4 @@
 {
-  "generated_at": "2026-05-21T17:47:00",
-  "domains": [
-    {
-      "domain": "cdslindia.co.in",
-      "inbox_count": 2,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "quora.com",
-      "inbox_count": 2,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "accounts.google.com",
-      "inbox_count": 1,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "facebookmail.com",
-      "inbox_count": 1,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "hpcl.in",
-      "inbox_count": 1,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "idfcfirstbank.com",
-      "inbox_count": 1,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "indusind.com",
-      "inbox_count": 1,
-      "ai_suggested": "review"
-    }
-  ]
+  "generated_at": "2026-05-21T18:01:45+00:00",
+  "domains": []
 }
