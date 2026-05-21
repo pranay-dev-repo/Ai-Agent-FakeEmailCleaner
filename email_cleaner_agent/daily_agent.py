@@ -20,7 +20,7 @@ import sys
 import base64
 import urllib.parse
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime
+from datetime import datetime, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from collections import Counter
@@ -135,7 +135,7 @@ def append_to_bulk_trash(new_domains: list):
 
 def write_domain_review_file(inbox_domains: Counter, review_domains: list, spam_new: list):
     payload = {
-        'generated_at': datetime.now().isoformat(timespec='seconds'),
+        'generated_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
         'domains': [
             {
                 'domain': domain,
