@@ -515,11 +515,19 @@ def send_report(service, to_email: str, stats: dict):
     msg.attach(MIMEText(html, 'html'))
 
     raw = base64.urlsafe_b64encode(msg.as_bytes()).decode()
-    try:
-        service.users().messages().send(userId='me', body={'raw': raw}).execute()
-        print(f'  Report sent to {to_email}', flush=True)
-    except HttpError as e:
-        print(f'  Failed to send report: {e}', flush=True)
+    for attempt, wait in enumerate([0, 60, 120, 180], start=1):
+        if wait:
+            print(f'  Rate limit — waiting {wait}s before sending report (attempt {attempt})...', flush=True)
+            time.sleep(wait)
+        try:
+            service.users().messages().send(userId='me', body={'raw': raw}).execute()
+            print(f'  Report sent to {to_email}', flush=True)
+            return
+        except HttpError as e:
+            if 'rateLimitExceeded' in str(e) and attempt < 4:
+                continue
+            print(f'  Failed to send report: {e}', flush=True)
+            return
 
 
 # ── Main ───────────────────────────────────────────────────────────────────────
