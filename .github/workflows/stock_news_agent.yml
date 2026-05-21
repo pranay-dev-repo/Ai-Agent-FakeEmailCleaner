@@ -2,7 +2,7 @@
 
 on:
   schedule:
-    - cron: '30 12 * * 1-5'  # 12:30 PM UTC = 6:00 PM IST, Mon-Fri (after market close)
+    - cron: '30 14 * * 1-5'  # 2:30 PM UTC = 8:00 PM IST, Mon-Fri (after NSE data published)
   workflow_dispatch:          # manual trigger from GitHub UI
 
 jobs:
