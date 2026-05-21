@@ -1,14 +1,18 @@
 {
   "feeds": [
-    "https://news.google.com/rss/search?q=stock%20market&hl=en-US&gl=US&ceid=US:en",
-    "https://news.google.com/rss/search?q=S%26P%20500%20OR%20NASDAQ&hl=en-US&gl=US&ceid=US:en",
-    "https://news.google.com/rss/search?q=earnings%20report%20stocks&hl=en-US&gl=US&ceid=US:en"
+    "https://news.google.com/rss/search?q=Indian%20stock%20market%20Nifty%20Sensex&hl=en-IN&gl=IN&ceid=IN:en",
+    "https://news.google.com/rss/search?q=NSE%20BSE%20stocks%20India%20earnings&hl=en-IN&gl=IN&ceid=IN:en",
+    "https://news.google.com/rss/search?q=Indian%20equity%20market%20sector%20stocks&hl=en-IN&gl=IN&ceid=IN:en"
   ],
-  "max_items": 8,
+  "max_items": 10,
   "output_dir": "posts",
   "webhook_url_env": "NEWS_WEBHOOK_URL",
   "insights_enabled": true,
   "insights_max_points": 4,
   "openai_api_key_env": "GROQ_API_KEY",
-  "openai_model": "llama-3.3-70b-versatile"
+  "openai_model": "llama-3.3-70b-versatile",
+  "delivery_enabled": true,
+  "delivery_trading_days": 5,
+  "delivery_top_per_sector": 5,
+  "delivery_min_total_traded_qty": 50000
 }
