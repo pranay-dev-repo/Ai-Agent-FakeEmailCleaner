@@ -596,7 +596,9 @@ def main():
     whitelist = set(d.lower() for d in config.get('whitelist_domains', []))
 
     # Step 1: scan inbox domains
-    max_scan = int(config.get('max_scan_emails', 0))
+    # MAX_SCAN_EMAILS env var set by workflow_dispatch input; absent on scheduled runs → scan all
+    env_max = os.environ.get('MAX_SCAN_EMAILS', '').strip()
+    max_scan = int(env_max) if env_max else int(config.get('max_scan_emails', 0))
     inbox_domains = scan_inbox_domains(service, max_emails=max_scan)
 
     # Step 2: find new unknown domains

@@ -2,7 +2,6 @@
   "report_email": "pranayshah465@gmail.com",
   "review_page_url": "https://YOUR-SITE.netlify.app/review.html",
   "look_back_hours": 876000,
-  "max_scan_emails": 0,
   "blocklist": [
     "newsletter@example.com",
     "noreply@promotions.com",

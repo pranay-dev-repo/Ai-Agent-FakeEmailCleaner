@@ -3,7 +3,13 @@ name: Daily Email Cleaner
 on:
   schedule:
     - cron: '30 1 * * *'   # 1:30 AM UTC = 7:00 AM IST every day
-  workflow_dispatch:         # allows manual run from GitHub UI
+  workflow_dispatch:
+    inputs:
+      max_scan_emails:
+        description: 'Max emails to scan (0 = all, leave blank for 50 on manual runs)'
+        required: false
+        default: '50'
+        type: string
 
 jobs:
   clean:
@@ -33,6 +39,7 @@ jobs:
           GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GITHUB_WORKFLOW_PAT: ${{ secrets.GITHUB_WORKFLOW_PAT }}
+          MAX_SCAN_EMAILS: ${{ inputs.max_scan_emails }}
         run: python -u email_cleaner_agent/daily_agent.py
 
       - name: Commit updated files
