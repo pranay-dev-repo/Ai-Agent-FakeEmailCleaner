@@ -13,3 +13,7 @@ credentials.json
 email_cleaner_agent/cleaner.log
 email_cleaner_agent/scheduler.log
 inbox_domains.txt
+email_cleaner_agent/domain_review.html
+
+# Claude local settings
+.claude/settings.local.json

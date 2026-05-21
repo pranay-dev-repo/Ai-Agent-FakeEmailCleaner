@@ -32,6 +32,7 @@ from googleapiclient.errors import HttpError
 SCRIPT_DIR = Path(__file__).parent
 CONFIG_FILE = SCRIPT_DIR / 'config.json'
 BULK_TRASH_FILE = SCRIPT_DIR / 'bulk_trash.py'
+DOMAIN_REVIEW_FILE = SCRIPT_DIR / 'domain_review.json'
 
 # ── Gmail ──────────────────────────────────────────────────────────────────────
 
@@ -125,6 +126,22 @@ def append_to_bulk_trash(new_domains: list):
     )
     BULK_TRASH_FILE.write_text(updated, encoding='utf-8')
     print(f'      Appended {len(new_domains)} new spam domain(s) to bulk_trash.py', flush=True)
+
+
+def write_domain_review_file(inbox_domains: Counter, review_domains: list, spam_new: list):
+    payload = {
+        'generated_at': datetime.now().isoformat(timespec='seconds'),
+        'domains': [
+            {
+                'domain': domain,
+                'inbox_count': inbox_domains.get(domain, 0),
+                'ai_suggested': 'blacklist' if domain in spam_new else 'review',
+            }
+            for domain in sorted(review_domains, key=lambda d: (-inbox_domains.get(d, 0), d))
+        ],
+    }
+    DOMAIN_REVIEW_FILE.write_text(json.dumps(payload, indent=2) + '\n', encoding='utf-8')
+    print(f'      Review file updated: {DOMAIN_REVIEW_FILE.name}', flush=True)
 
 
 # ── Domain classification ──────────────────────────────────────────────────────
@@ -411,6 +428,8 @@ def main():
     else:
         print('      Nothing new to classify', flush=True)
         spam_new = []
+
+    write_domain_review_file(inbox_domains, new_domains, spam_new)
 
     # Step 4: run bulk trash (reload list after any additions)
     all_trash_domains = load_trash_domains()
