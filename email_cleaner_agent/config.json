@@ -1,6 +1,6 @@
 {
   "report_email": "pranayshah465@gmail.com",
-  "review_page_url": "https://YOUR-SITE.netlify.app/review.html",
+  "review_page_url": "https://pranay-dev-repo.github.io/Ai-Agent-FakeEmailCleaner/review.html",
   "look_back_hours": 876000,
   "blocklist": [
     "newsletter@example.com",
