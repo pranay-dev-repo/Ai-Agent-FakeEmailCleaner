@@ -18,6 +18,7 @@ import time
 import subprocess
 import sys
 import base64
+import urllib.parse
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -272,6 +273,120 @@ def run_bulk_trash(service, trash_domains: set, whitelist_domains: set | None = 
     return total, per_domain
 
 
+# ── Domain management via email ────────────────────────────────────────────────
+
+def _parse_domain_list(text: str) -> list:
+    domains = []
+    for part in re.split(r'[,\s]+', text):
+        part = part.strip().lower().strip('()[]<>"\'-')
+        if part and '.' in part and len(part) > 3:
+            domains.append(part)
+    return domains
+
+
+def _get_email_body(payload) -> str:
+    def _decode(part):
+        data = part.get('body', {}).get('data', '')
+        return base64.urlsafe_b64decode(data).decode('utf-8', errors='ignore') if data else ''
+
+    if payload.get('mimeType') == 'text/plain':
+        return _decode(payload)
+    for part in payload.get('parts', []):
+        if part.get('mimeType') == 'text/plain':
+            return _decode(part)
+        for sub in part.get('parts', []):
+            if sub.get('mimeType') == 'text/plain':
+                return _decode(sub)
+    return ''
+
+
+def _make_mailto(to_email: str, subject: str, body: str = '') -> str:
+    qs = f'subject={urllib.parse.quote(subject, safe="")}'
+    if body:
+        qs += f'&body={urllib.parse.quote(body, safe="")}'
+    return f'mailto:{to_email}?{qs}'
+
+
+def process_domain_management_emails(service, config: dict) -> tuple:
+    """Read [EMAIL-CLEANER] emails, apply whitelist/blacklist actions, mark read."""
+    print('[0/5] Checking for domain management emails...', flush=True)
+    whitelist_add, blacklist_add, msg_ids = [], [], []
+
+    try:
+        result = service.users().messages().list(
+            userId='me', q='subject:"[EMAIL-CLEANER]" is:unread', maxResults=50
+        ).execute()
+        messages = result.get('messages', [])
+    except Exception as e:
+        print(f'      Could not check management emails: {e}', flush=True)
+        return [], []
+
+    if not messages:
+        print('      No pending management emails', flush=True)
+        return [], []
+
+    print(f'      Found {len(messages)} management email(s)', flush=True)
+    for msg in messages:
+        try:
+            full = service.users().messages().get(userId='me', id=msg['id'], format='full').execute()
+            subject = next(
+                (h['value'] for h in full['payload']['headers'] if h['name'].lower() == 'subject'), ''
+            )
+            body = _get_email_body(full['payload'])
+            msg_ids.append(msg['id'])
+
+            if '[email-cleaner]' not in subject.lower():
+                continue
+
+            # Format: [EMAIL-CLEANER] whitelist domain.com  OR  blacklist domain.com
+            parts = subject.split()
+            for i, part in enumerate(parts):
+                if part.lower() == 'whitelist' and i + 1 < len(parts):
+                    whitelist_add.extend(_parse_domain_list(' '.join(parts[i + 1:])))
+                elif part.lower() == 'blacklist' and i + 1 < len(parts):
+                    blacklist_add.extend(_parse_domain_list(' '.join(parts[i + 1:])))
+
+            # Format: [EMAIL-CLEANER] manage  with body containing WHITELIST:/BLACKLIST: lines
+            if 'manage' in subject.lower() and body:
+                for line in body.splitlines():
+                    line = line.strip()
+                    if line.upper().startswith('WHITELIST:'):
+                        whitelist_add.extend(_parse_domain_list(line[len('WHITELIST:'):]))
+                    elif line.upper().startswith('BLACKLIST:'):
+                        blacklist_add.extend(_parse_domain_list(line[len('BLACKLIST:'):]))
+        except Exception as e:
+            print(f'      Error reading email {msg["id"]}: {e}', flush=True)
+
+    # Mark all as read
+    if msg_ids:
+        batch = service.new_batch_http_request()
+        for mid in msg_ids:
+            batch.add(service.users().messages().modify(
+                userId='me', id=mid, body={'removeLabelIds': ['UNREAD']}
+            ))
+        batch.execute()
+
+    whitelist_add = list(dict.fromkeys(whitelist_add))
+    blacklist_add = [d for d in dict.fromkeys(blacklist_add) if d not in whitelist_add]
+
+    if whitelist_add:
+        current = set(d.lower() for d in config.get('whitelist_domains', []))
+        config['whitelist_domains'] = sorted(current | set(whitelist_add))
+        CONFIG_FILE.write_text(json.dumps(config, indent=2) + '\n', encoding='utf-8')
+        print(f'      Whitelisted: {", ".join(whitelist_add)}', flush=True)
+
+    if blacklist_add:
+        # Remove from whitelist if present
+        config['whitelist_domains'] = [
+            d for d in config.get('whitelist_domains', []) if d.lower() not in set(blacklist_add)
+        ]
+        CONFIG_FILE.write_text(json.dumps(config, indent=2) + '\n', encoding='utf-8')
+        append_to_bulk_trash(blacklist_add)
+        print(f'      Blacklisted: {", ".join(blacklist_add)}', flush=True)
+
+    return whitelist_add, blacklist_add
+
+
 # ── Email report ──────────────────────────────────────────────────────────────
 
 def send_report(service, to_email: str, stats: dict):
@@ -289,10 +404,38 @@ def send_report(service, to_email: str, stats: dict):
         f'<tr><td>{d}</td><td style="text-align:right">{c}</td></tr>'
         for d, c in sorted(stats['trashed_per_domain'].items(), key=lambda x: -x[1])
     ) or '<tr><td colspan="2"><i>None</i></td></tr>'
-    review_rows = ''.join(
-        f'<tr><td>{d}</td><td style="text-align:right">{stats["inbox_domain_counts"].get(d, 0)}</td></tr>'
-        for d in sorted(stats['review_domains'])
-    ) or '<tr><td colspan="2"><i>None</i></td></tr>'
+    to_email = stats.get('report_email', to_email)
+    review_domain_list = sorted(stats['review_domains'])
+    if review_domain_list:
+        bulk_body = (
+            'WHITELIST: \n'
+            'BLACKLIST: ' + ', '.join(review_domain_list) + '\n\n'
+            '(Move domains between WHITELIST/BLACKLIST lines as needed, then send)'
+        )
+        manage_all_href = _make_mailto(to_email, '[EMAIL-CLEANER] manage', bulk_body)
+        manage_all_btn = (
+            f'<a href="{manage_all_href}" style="display:inline-block;margin-bottom:12px;'
+            f'background:#5f6368;color:#fff;padding:6px 14px;border-radius:4px;'
+            f'text-decoration:none;font-size:13px">&#9998; Manage All Domains</a>'
+        )
+        review_rows = ''.join(
+            f'''<tr style="background:{'#f8f9fa' if i % 2 == 0 else '#fff'}">
+              <td style="padding:8px 12px">{d}</td>
+              <td style="padding:8px 12px;text-align:right">{stats["inbox_domain_counts"].get(d, 0)}</td>
+              <td style="padding:6px 10px;text-align:center">
+                <a href="{_make_mailto(to_email, f'[EMAIL-CLEANER] whitelist {d}')}"
+                   style="background:#0f9d58;color:#fff;padding:4px 10px;border-radius:4px;text-decoration:none;font-size:12px">&#10003; Whitelist</a>
+              </td>
+              <td style="padding:6px 10px;text-align:center">
+                <a href="{_make_mailto(to_email, f'[EMAIL-CLEANER] blacklist {d}')}"
+                   style="background:#d93025;color:#fff;padding:4px 10px;border-radius:4px;text-decoration:none;font-size:12px">&#10007; Blacklist</a>
+              </td>
+            </tr>'''
+            for i, d in enumerate(review_domain_list)
+        )
+    else:
+        manage_all_btn = ''
+        review_rows = '<tr><td colspan="4"><i>None</i></td></tr>'
 
     html = f"""
 <html><body style="font-family:Arial,sans-serif;color:#222;max-width:650px;margin:auto">
@@ -329,19 +472,17 @@ def send_report(service, to_email: str, stats: dict):
 
 <h3 style="margin-top:24px;color:#5f6368">Review Domains</h3>
 <p style="font-size:13px;color:#666;line-height:1.6">
-  To move domains, open GitHub Actions &rarr; <b>Manage Email Domains</b>,
-  click <b>Run workflow</b>, choose <b>whitelist</b> or <b>blacklist</b>,
-  and paste one or more domains from this table.
+  Click <b>&#10003; Whitelist</b> or <b>&#10007; Blacklist</b> on any domain to open a pre-composed email —
+  just send it and the next daily run will apply the change automatically.<br>
+  Use <b>Manage All</b> to handle multiple domains at once.
 </p>
-<p style="font-size:13px">
-  <a href="https://github.com/pranay-dev-repo/Ai-Agent-FakeEmailCleaner/actions/workflows/manage_email_domains.yml">
-    Open Manage Email Domains workflow
-  </a>
-</p>
+{manage_all_btn}
 <table style="width:100%;border-collapse:collapse;font-size:13px">
   <tr style="background:#5f6368;color:#fff">
     <th style="padding:8px 12px;text-align:left">Domain</th>
-    <th style="padding:8px 12px;text-align:right">Inbox count</th>
+    <th style="padding:8px 12px;text-align:right">Inbox</th>
+    <th style="padding:8px 12px;text-align:center">Whitelist</th>
+    <th style="padding:8px 12px;text-align:center">Blacklist</th>
   </tr>
   {review_rows}
 </table>
@@ -394,6 +535,11 @@ def main():
     report_email = config.get('report_email', '').strip()
 
     service = get_gmail_service()
+
+    # Step 0: process any pending domain management emails
+    process_domain_management_emails(service, config)
+    # Reload whitelist in case it was updated
+    whitelist = set(d.lower() for d in config.get('whitelist_domains', []))
 
     # Step 1: scan inbox domains
     inbox_domains = scan_inbox_domains(service)
@@ -457,6 +603,7 @@ def main():
         'total_trash_domains': len(all_trash_domains),
         'bulk_trashed': bulk_trashed,
         'trashed_per_domain': trashed_per_domain,
+        'report_email': report_email,
     }
     send_report(service, report_email, stats)
 
