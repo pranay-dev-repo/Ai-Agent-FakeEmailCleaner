@@ -204,8 +204,9 @@ async function submit(action) {
     });
 
     if (resp.status === 204) {
-      showStatus(`${domains.length} domain(s) queued for ${action}. Changes apply on next agent run.`, true);
+      showStatus(`✓ ${domains.length} domain(s) queued for ${action}. Closing in 3 seconds...`, true);
       selectNone();
+      setTimeout(() => window.close(), 3000);
     } else {
       const txt = await resp.text();
       showStatus(`Error ${resp.status} — check token has repo + workflow scopes. ${txt}`, false);
