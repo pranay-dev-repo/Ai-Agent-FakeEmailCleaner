@@ -2,6 +2,7 @@ import argparse
 import base64
 import json
 import os
+import time
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -92,6 +93,27 @@ def get_gmail_service():
     return build('gmail', 'v1', credentials=creds)
 
 
+def _is_gmail_rate_limit(exc: Exception) -> bool:
+    if not isinstance(exc, HttpError):
+        return False
+    status = getattr(exc.resp, "status", None)
+    return status in (403, 429) and "ratelimit" in str(exc).lower()
+
+
+def send_gmail_message_with_retries(service, raw: str) -> None:
+    for attempt, wait_seconds in enumerate([0, 30, 60, 120], start=1):
+        if wait_seconds:
+            print(f"Gmail rate limit hit. Retrying email report in {wait_seconds}s...")
+            time.sleep(wait_seconds)
+        try:
+            service.users().messages().send(userId='me', body={'raw': raw}).execute()
+            return
+        except Exception as exc:
+            if attempt < 4 and _is_gmail_rate_limit(exc):
+                continue
+            raise
+
+
 def send_email_report(items: list[NewsItem], insights: list[str], now: datetime, to_email: str):
     if not to_email:
         return
@@ -135,7 +157,7 @@ def send_email_report(items: list[NewsItem], insights: list[str], now: datetime,
         msg['To'] = to_email
         msg.attach(MIMEText(html, 'html'))
         raw = base64.urlsafe_b64encode(msg.as_bytes()).decode()
-        service.users().messages().send(userId='me', body={'raw': raw}).execute()
+        send_gmail_message_with_retries(service, raw)
         print(f"Report emailed to {to_email}")
     except Exception as e:
         print(f"Email report failed: {e}")
