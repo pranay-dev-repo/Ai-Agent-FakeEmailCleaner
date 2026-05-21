@@ -178,6 +178,8 @@ DOMAINS_TO_TRASH = [
     "weareams.com",
     "winsoftech.com",
     "zintro.com",
+    "choicetechlab.com",
+    "mail.tatamf.in",
 ]
 
 creds = Credentials(
