@@ -12,7 +12,7 @@ from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-from delivery_data import DeliverySnapshot, fetch_weekly_delivery_snapshot
+from delivery_data import TodayDeliverySnapshot, fetch_today_delivery_top
 from fetcher import NewsItem, fetch_stock_news
 from file_handler import save_to_file
 from insights import generate_ai_insights, load_openai_key
@@ -66,27 +66,23 @@ def _format_qty(value: int) -> str:
     return f"{value:,}"
 
 
-def build_delivery_lines(snapshot: DeliverySnapshot | None) -> list[str]:
-    lines: list[str] = ["Highest Delivery Percentage - Last Available Week", ""]
+def build_delivery_lines(snapshot: TodayDeliverySnapshot | None) -> list[str]:
+    lines: list[str] = ["Top Delivery % Stocks — Today (Highest to Lowest)", ""]
     if not snapshot or not snapshot.has_data:
         lines.append("NSE delivery data was unavailable for this run.")
         if snapshot and snapshot.errors:
-            lines.append(f"Recent NSE fetch note: {snapshot.errors[-1]}")
+            lines.append(f"Note: {snapshot.errors[-1]}")
         lines.append("")
         return lines
 
-    days = ", ".join(day.strftime("%d %b") for day in snapshot.days)
-    lines.append(f"Trading days used: {days}")
+    lines.append(f"Trade date: {snapshot.trade_date:%d %b %Y}")
     lines.append("")
-    for sector in snapshot.sectors:
-        lines.append(sector.sector)
-        for item in sector.leaders:
-            lines.append(
-                f"- {item.symbol}: avg delivery {item.avg_delivery_percent:.1f}%, "
-                f"max {item.max_delivery_percent:.1f}%, delivery qty {_format_qty(item.total_delivery_qty)} "
-                f"over {item.days_counted} day(s)"
-            )
-        lines.append("")
+    for idx, s in enumerate(snapshot.stocks, start=1):
+        lines.append(
+            f"{idx:>2}. {s.symbol:<15} {s.delivery_percent:>5.1f}%   "
+            f"Close: ₹{s.close_price:.2f}   Delivery Qty: {_format_qty(s.delivery_qty)}"
+        )
+    lines.append("")
     return lines
 
 
@@ -94,7 +90,7 @@ def build_daily_post(
     items: list[NewsItem],
     now: datetime,
     insights: list[str] | None = None,
-    delivery_snapshot: DeliverySnapshot | None = None,
+    delivery_snapshot: TodayDeliverySnapshot | None = None,
 ) -> str:
     lines = [f"Indian Stock Market Report - {now:%Y-%m-%d}", ""]
     if insights:
@@ -159,40 +155,37 @@ def send_gmail_message_with_retries(service, raw: str) -> None:
             raise
 
 
-def build_delivery_html(snapshot: DeliverySnapshot | None) -> str:
+def build_delivery_html(snapshot: TodayDeliverySnapshot | None) -> str:
     if not snapshot or not snapshot.has_data:
         note = "NSE delivery data was unavailable for this run."
         if snapshot and snapshot.errors:
-            note += f" Latest note: {snapshot.errors[-1]}"
+            note += f" Note: {snapshot.errors[-1]}"
         return f'<p style="color:#666">{note}</p>'
 
-    sections = []
-    for sector in snapshot.sectors:
-        rows = "".join(
-            f"""<tr>
-                  <td style="padding:7px 10px;border-bottom:1px solid #eee">{item.symbol}</td>
-                  <td style="padding:7px 10px;border-bottom:1px solid #eee;text-align:right">{item.avg_delivery_percent:.1f}%</td>
-                  <td style="padding:7px 10px;border-bottom:1px solid #eee;text-align:right">{item.max_delivery_percent:.1f}%</td>
-                  <td style="padding:7px 10px;border-bottom:1px solid #eee;text-align:right">{_format_qty(item.total_delivery_qty)}</td>
-                </tr>"""
-            for item in sector.leaders
-        )
-        sections.append(
-            f"""
-            <h4 style="margin:16px 0 6px;color:#174ea6">{sector.sector}</h4>
-            <table style="width:100%;border-collapse:collapse;font-size:13px">
-              <tr style="background:#e8f0fe;color:#174ea6">
-                <th style="padding:7px 10px;text-align:left">Stock</th>
-                <th style="padding:7px 10px;text-align:right">Avg Delivery</th>
-                <th style="padding:7px 10px;text-align:right">Max</th>
-                <th style="padding:7px 10px;text-align:right">Delivery Qty</th>
-              </tr>
-              {rows}
-            </table>
-            """
-        )
-    days = ", ".join(day.strftime("%d %b") for day in snapshot.days)
-    return f'<p style="color:#666">Trading days used: {days}</p>' + "".join(sections)
+    rows = "".join(
+        f"""<tr style="background:{'#f8f9fa' if idx % 2 == 0 else '#fff'}">
+              <td style="padding:6px 10px;border-bottom:1px solid #eee;color:#666">{idx}</td>
+              <td style="padding:6px 10px;border-bottom:1px solid #eee;font-weight:bold">{s.symbol}</td>
+              <td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right;color:#0f9d58;font-weight:bold">{s.delivery_percent:.1f}%</td>
+              <td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right">&#8377;{s.close_price:.2f}</td>
+              <td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right">{_format_qty(s.delivery_qty)}</td>
+              <td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right">{_format_qty(s.traded_qty)}</td>
+            </tr>"""
+        for idx, s in enumerate(snapshot.stocks, start=1)
+    )
+    return f"""
+<p style="color:#666;margin-bottom:8px">Trade date: <strong>{snapshot.trade_date:%d %b %Y}</strong> &bull; Sorted by delivery % (highest first)</p>
+<table style="width:100%;border-collapse:collapse;font-size:13px">
+  <tr style="background:#e8f0fe;color:#174ea6">
+    <th style="padding:7px 10px;text-align:left">#</th>
+    <th style="padding:7px 10px;text-align:left">Symbol</th>
+    <th style="padding:7px 10px;text-align:right">Delivery %</th>
+    <th style="padding:7px 10px;text-align:right">Close</th>
+    <th style="padding:7px 10px;text-align:right">Delivery Qty</th>
+    <th style="padding:7px 10px;text-align:right">Traded Qty</th>
+  </tr>
+  {rows}
+</table>"""
 
 
 def send_email_report(
@@ -200,7 +193,7 @@ def send_email_report(
     insights: list[str],
     now: datetime,
     to_email: str,
-    delivery_snapshot: DeliverySnapshot | None = None,
+    delivery_snapshot: TodayDeliverySnapshot | None = None,
 ):
     if not to_email:
         return
@@ -226,7 +219,7 @@ def send_email_report(
 <h3 style="color:#0f9d58;margin-top:20px">Coming Week Sector Outlook</h3>
 <ul style="line-height:1.8">{insight_rows}</ul>
 
-<h3 style="color:#0f9d58;margin-top:20px">Highest Delivery Percentage - Last Available Week</h3>
+<h3 style="color:#0f9d58;margin-top:20px">Today's Top Delivery % Stocks (Highest → Lowest)</h3>
 {delivery_html}
 
 <h3 style="color:#0f9d58;margin-top:20px">Indian Market Headlines</h3>
@@ -264,12 +257,11 @@ def agent_run(config_path: str, publish: bool) -> None:
     )
 
     now = datetime.now()
-    delivery_snapshot: DeliverySnapshot | None = None
+    delivery_snapshot: TodayDeliverySnapshot | None = None
     if bool(config.get("delivery_enabled", True)):
-        delivery_snapshot = fetch_weekly_delivery_snapshot(
-            trading_days=int(config.get("delivery_trading_days", 5)),
-            top_per_sector=int(config.get("delivery_top_per_sector", 5)),
-            min_total_traded_qty=int(config.get("delivery_min_total_traded_qty", 50000)),
+        delivery_snapshot = fetch_today_delivery_top(
+            top_n=int(config.get("delivery_top_n", 40)),
+            min_traded_qty=int(config.get("delivery_min_traded_qty", 10000)),
         )
 
     insights: list[str] = []

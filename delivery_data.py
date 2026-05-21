@@ -50,6 +50,26 @@ SECTOR_SYMBOLS: dict[str, list[str]] = {
 
 
 @dataclass
+class TodayDeliveryStock:
+    symbol: str
+    delivery_percent: float
+    close_price: float
+    traded_qty: int
+    delivery_qty: int
+
+
+@dataclass
+class TodayDeliverySnapshot:
+    stocks: list[TodayDeliveryStock]
+    trade_date: date | None
+    errors: list[str]
+
+    @property
+    def has_data(self) -> bool:
+        return bool(self.stocks and self.trade_date)
+
+
+@dataclass
 class StockDeliveryStat:
     symbol: str
     sector: str
@@ -192,3 +212,51 @@ def fetch_weekly_delivery_snapshot(
     ]
 
     return DeliverySnapshot(days=sorted(used_days), sectors=sectors, errors=errors[-5:])
+
+
+def fetch_today_delivery_top(
+    top_n: int = 40,
+    min_traded_qty: int = 10_000,
+    timeout_seconds: int = 20,
+) -> TodayDeliverySnapshot:
+    """Fetch the most recent trading day's NSE delivery data for all EQ stocks, sorted by delivery % descending."""
+    session = _make_session()
+    errors: list[str] = []
+
+    for offset in range(0, 8):
+        day = datetime.now().date() - timedelta(days=offset)
+        if day.weekday() >= 5:
+            continue
+        try:
+            rows = _download_bhavcopy(session, day, timeout_seconds)
+        except Exception as exc:
+            errors.append(f"{day:%Y-%m-%d}: {exc}")
+            continue
+
+        stocks: list[TodayDeliveryStock] = []
+        for row in rows:
+            series = row.get("SERIES", row.get(" SERIES", "")).strip().upper()
+            if series != "EQ":
+                continue
+            symbol = row.get("SYMBOL", "").strip().upper()
+            if not symbol:
+                continue
+            delivery_percent = _to_float(row.get("DELIV_PER", row.get(" DELIV_PER", "")))
+            traded_qty = _to_int(row.get("TTL_TRD_QNTY", row.get(" TTL_TRD_QNTY", "")))
+            delivery_qty = _to_int(row.get("DELIV_QTY", row.get(" DELIV_QTY", "")))
+            close_price = _to_float(row.get("CLOSE_PRICE", row.get(" CLOSE_PRICE", "")))
+            if delivery_percent <= 0 or traded_qty < min_traded_qty:
+                continue
+            stocks.append(TodayDeliveryStock(
+                symbol=symbol,
+                delivery_percent=delivery_percent,
+                close_price=close_price,
+                traded_qty=traded_qty,
+                delivery_qty=delivery_qty,
+            ))
+
+        if stocks:
+            stocks.sort(key=lambda s: s.delivery_percent, reverse=True)
+            return TodayDeliverySnapshot(stocks=stocks[:top_n], trade_date=day, errors=errors)
+
+    return TodayDeliverySnapshot(stocks=[], trade_date=None, errors=errors[-5:])

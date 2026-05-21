@@ -7,7 +7,7 @@ from typing import Iterable
 
 import requests
 
-from delivery_data import DeliverySnapshot
+from delivery_data import DeliverySnapshot, TodayDeliverySnapshot
 from fetcher import NewsItem
 
 
@@ -46,9 +46,13 @@ def _extract_keywords(titles: Iterable[str]) -> Counter:
     return Counter(words)
 
 
-def _delivery_context(snapshot: DeliverySnapshot | None) -> str:
+def _delivery_context(snapshot: DeliverySnapshot | TodayDeliverySnapshot | None) -> str:
     if not snapshot or not snapshot.has_data:
         return "NSE delivery data was unavailable."
+    if isinstance(snapshot, TodayDeliverySnapshot):
+        top = snapshot.stocks[:10]
+        lines = [f"{s.symbol} {s.delivery_percent:.1f}%" for s in top]
+        return f"Top delivery % stocks today ({snapshot.trade_date}):\n" + ", ".join(lines)
     lines = []
     for sector in snapshot.sectors[:8]:
         leaders = ", ".join(
@@ -63,7 +67,7 @@ def _delivery_context(snapshot: DeliverySnapshot | None) -> str:
 def fallback_insights(
     items: list[NewsItem],
     max_points: int = 4,
-    delivery_snapshot: DeliverySnapshot | None = None,
+    delivery_snapshot: DeliverySnapshot | TodayDeliverySnapshot | None = None,
 ) -> list[str]:
     if not items:
         return ["No major Indian stock market headlines were captured today."]
@@ -82,17 +86,24 @@ def fallback_insights(
         insights.append("Quarterly results and management commentary may drive stock-specific moves.")
 
     if delivery_snapshot and delivery_snapshot.has_data:
-        strongest = []
-        for sector in delivery_snapshot.sectors:
-            if sector.leaders:
-                top = sector.leaders[0]
-                strongest.append((sector.sector, top.avg_delivery_percent, top.symbol))
-        strongest.sort(key=lambda row: row[1], reverse=True)
-        if strongest:
-            sector, pct, symbol = strongest[0]
+        if isinstance(delivery_snapshot, TodayDeliverySnapshot):
+            top = delivery_snapshot.stocks[0]
             insights.append(
-                f"Highest recent delivery interest is in {sector}, led by {symbol} at {pct:.1f}% average delivery."
+                f"Highest delivery % today: {top.symbol} at {top.delivery_percent:.1f}%, "
+                f"suggesting strong institutional accumulation."
             )
+        else:
+            strongest = []
+            for sector in delivery_snapshot.sectors:
+                if sector.leaders:
+                    s = sector.leaders[0]
+                    strongest.append((sector.sector, s.avg_delivery_percent, s.symbol))
+            strongest.sort(key=lambda row: row[1], reverse=True)
+            if strongest:
+                sector, pct, symbol = strongest[0]
+                insights.append(
+                    f"Highest recent delivery interest is in {sector}, led by {symbol} at {pct:.1f}% average delivery."
+                )
 
     unique_sources = {item.source for item in items if item.source}
     insights.append(f"Coverage is coming from {len(unique_sources)} different Indian market news sources.")
@@ -106,7 +117,7 @@ def generate_ai_insights(
     model: str = "llama-3.3-70b-versatile",
     max_points: int = 4,
     timeout_seconds: int = 25,
-    delivery_snapshot: DeliverySnapshot | None = None,
+    delivery_snapshot: DeliverySnapshot | TodayDeliverySnapshot | None = None,
 ) -> list[str]:
     if not api_key or not items:
         return fallback_insights(items, max_points=max_points, delivery_snapshot=delivery_snapshot)

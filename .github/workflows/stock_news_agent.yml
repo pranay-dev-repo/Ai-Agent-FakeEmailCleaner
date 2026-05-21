@@ -1,8 +1,8 @@
-name: Daily Stock News Agent
+﻿name: Daily Stock News Agent
 
 on:
   schedule:
-    - cron: '0 3 * * 1-5'   # 3:00 AM UTC = 8:30 AM IST, Mon–Fri (market days)
+    - cron: '30 12 * * 1-5'  # 12:30 PM UTC = 6:00 PM IST, Mon-Fri (after market close)
   workflow_dispatch:          # manual trigger from GitHub UI
 
 jobs:
