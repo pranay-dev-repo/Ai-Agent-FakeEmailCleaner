@@ -19,6 +19,7 @@ import subprocess
 import sys
 import base64
 import urllib.parse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -205,75 +206,75 @@ def classify_with_groq(domains: list, api_key: str) -> list:
     return spam
 
 
-# ── Bulk trash (inline, same logic as bulk_trash.py) ──────────────────────────
+# ── Bulk trash (batched domain search — 10 domains per query) ──────────────────
+
+_BULK_BATCH = 10  # domains per Gmail search query
 
 def run_bulk_trash(service, trash_domains: set, whitelist_domains: set | None = None):
     print('[4/5] Running bulk trash...', flush=True)
     whitelist_domains = whitelist_domains or set()
-    safe_trash_domains = {
+    safe_domains = sorted(
         d for d in trash_domains
         if not any(d == w or d.endswith('.' + w) for w in whitelist_domains)
-    }
-    skipped = sorted(set(trash_domains) - safe_trash_domains)
+    )
+    skipped = sorted(set(trash_domains) - set(safe_domains))
     if skipped:
-        print(f'      Skipping {len(skipped)} whitelisted domain(s) from bulk trash:', flush=True)
+        print(f'      Skipping {len(skipped)} whitelisted domain(s):', flush=True)
         for d in skipped:
             print(f'        KEEP {d}', flush=True)
 
-    total = 0
-    per_domain = {}
-    for idx, domain in enumerate(sorted(safe_trash_domains)):
-        # Rate limit: pause every 5 domains to stay within Gmail quota
-        if idx > 0 and idx % 5 == 0:
-            time.sleep(1)
+    if not safe_domains:
+        return 0, {}
 
-        msg_ids = []
+    total_queries = (len(safe_domains) + _BULK_BATCH - 1) // _BULK_BATCH
+    print(f'      {len(safe_domains)} domains → {total_queries} batched queries', flush=True)
+    all_ids = []
+
+    for qi, i in enumerate(range(0, len(safe_domains), _BULK_BATCH), start=1):
+        batch_domains = safe_domains[i:i + _BULK_BATCH]
+        q = 'in:inbox (' + ' OR '.join(f'from:@{d}' for d in batch_domains) + ')'
         page_token = None
+        batch_ids = []
         while True:
-            kwargs = {'userId': 'me', 'q': f'in:inbox from:@{domain}', 'maxResults': 500}
+            kwargs = {'userId': 'me', 'q': q, 'maxResults': 500}
             if page_token:
                 kwargs['pageToken'] = page_token
-            try:
-                result = service.users().messages().list(**kwargs).execute()
-            except HttpError as e:
-                if 'rateLimitExceeded' in str(e):
-                    for wait in [15, 30, 60]:
-                        print(f'  Rate limit hit, sleeping {wait}s...', flush=True)
-                        time.sleep(wait)
-                        try:
-                            result = service.users().messages().list(**kwargs).execute()
-                            break
-                        except HttpError:
-                            continue
-                    else:
-                        print(f'  Skipping {domain} after repeated rate limits', flush=True)
-                        break
-                else:
+            for wait in [0, 15, 30, 60]:
+                if wait:
+                    print(f'  Rate limit — sleeping {wait}s...', flush=True)
+                    time.sleep(wait)
+                try:
+                    result = service.users().messages().list(**kwargs).execute()
+                    break
+                except HttpError as e:
+                    if 'rateLimitExceeded' in str(e) and wait < 60:
+                        continue
                     raise
-            msg_ids.extend([m['id'] for m in result.get('messages', [])])
+            batch_ids.extend(m['id'] for m in result.get('messages', []))
             page_token = result.get('nextPageToken')
             if not page_token:
                 break
+        if batch_ids:
+            print(f'  [batch {qi}/{total_queries}] {len(batch_ids)} emails — {", ".join(batch_domains)}', flush=True)
+        all_ids.extend(batch_ids)
 
-        if not msg_ids:
-            continue
+    if not all_ids:
+        print('      Nothing to trash.', flush=True)
+        return 0, {}
 
-        for i in range(0, len(msg_ids), 100):
-            batch = service.new_batch_http_request()
-            for mid in msg_ids[i:i + 100]:
-                batch.add(service.users().messages().trash(userId='me', id=mid))
-            try:
-                batch.execute()
-            except HttpError as e:
-                print(f'  Batch error for {domain}: {e}', flush=True)
-                time.sleep(2)
+    print(f'      Trashing {len(all_ids)} emails via batch API...', flush=True)
+    for i in range(0, len(all_ids), 100):
+        b = service.new_batch_http_request()
+        for mid in all_ids[i:i + 100]:
+            b.add(service.users().messages().trash(userId='me', id=mid))
+        try:
+            b.execute()
+        except HttpError as e:
+            print(f'  Batch trash error: {e}', flush=True)
+            time.sleep(2)
 
-        total += len(msg_ids)
-        per_domain[domain] = len(msg_ids)
-        print(f'  [TRASHED {len(msg_ids):4d}] {domain}', flush=True)
-
-    print(f'      Bulk trash done. Total trashed: {total}', flush=True)
-    return total, per_domain
+    print(f'      Bulk trash done. Total trashed: {len(all_ids)}', flush=True)
+    return len(all_ids), {}
 
 
 # ── Subject keyword trash ──────────────────────────────────────────────────────
@@ -445,7 +446,7 @@ def send_report(service, to_email: str, stats: dict):
     trash_rows = ''.join(
         f'<tr><td>{d}</td><td style="text-align:right">{c}</td></tr>'
         for d, c in sorted(stats['trashed_per_domain'].items(), key=lambda x: -x[1])
-    ) or '<tr><td colspan="2"><i>None</i></td></tr>'
+    ) or f'<tr><td colspan="2" style="color:#666"><i>Batched bulk trash — {stats["bulk_trashed"]:,} emails trashed across {len(load_trash_domains())} domains</i></td></tr>'
     to_email = stats.get('report_email', to_email)
     review_domain_list = sorted(stats['review_domains'])
     review_btn = (

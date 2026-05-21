@@ -3,6 +3,7 @@ import re
 import json
 import base64
 import logging
+from concurrent.futures import ThreadPoolExecutor
 from email.mime.text import MIMEText
 from datetime import datetime, timedelta
 
@@ -225,8 +226,10 @@ def run():
 
     # Step 3: DNS check — once per unique domain (not per email)
     unique_domains = {e['domain'] for e in emails if e['domain']}
-    log.info('Checking MX records for %d unique domains...', len(unique_domains))
-    domain_has_mx = {d: has_mx_record(d) for d in unique_domains}
+    log.info('Checking MX records for %d unique domains (parallel)...', len(unique_domains))
+    with ThreadPoolExecutor(max_workers=20) as ex:
+        futures = {d: ex.submit(has_mx_record, d) for d in unique_domains}
+        domain_has_mx = {d: f.result() for d, f in futures.items()}
     log.info('MX check complete.')
 
     # Step 4: classify each email
