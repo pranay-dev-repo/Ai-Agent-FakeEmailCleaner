@@ -26,7 +26,6 @@ from datetime import datetime, timezone, timedelta
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from collections import Counter
-from itertools import cycle
 from pathlib import Path
 
 from google.oauth2.credentials import Credentials
@@ -358,20 +357,19 @@ SESSION_FILE = DOCS_DIR / 'session.json'
 REVIEW_BASE_URL = 'https://pranay-dev-repo.github.io/Ai-Agent-FakeEmailCleaner/review.html'
 
 
-def generate_magic_session(pat: str) -> str:
-    """XOR-encrypts PAT with a random key, writes docs/session.json, returns session URL."""
-    key = secrets.token_bytes(32)
-    pat_bytes = pat.encode()
-    encrypted = bytes(a ^ b for a, b in zip(pat_bytes, cycle(key)))
+def generate_magic_session(review_url_base: str) -> str:
+    """Generates a one-time token, writes docs/session.json, returns the magic link URL."""
+    token = secrets.token_hex(32)
+    token_hash = hashlib.sha256(token.encode()).hexdigest()
     expires = (datetime.now(timezone.utc) + timedelta(hours=25)).isoformat(timespec='seconds')
     payload = {
-        'enc': encrypted.hex(),
+        'token_hash': token_hash,
         'expires_at': expires,
-        'key_hash': hashlib.sha256(key).hexdigest()[:16],
+        'used': False,
     }
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
     SESSION_FILE.write_text(json.dumps(payload) + '\n', encoding='utf-8')
-    return f'{REVIEW_BASE_URL}?t={key.hex()}'
+    return f'{review_url_base}?t={token}'
 
 
 def process_domain_management_emails(service, config: dict) -> tuple:
@@ -463,18 +461,7 @@ def send_report(service, to_email: str, stats: dict):
 
     run_time = datetime.now().strftime('%Y-%m-%d %H:%M')
 
-    # Generate magic link if PAT is available
-    workflow_pat = os.environ.get('GITHUB_WORKFLOW_PAT', '')
-    if workflow_pat:
-        try:
-            review_url = generate_magic_session(workflow_pat)
-            print(f'  Magic link session generated (expires 25h)', flush=True)
-        except Exception as e:
-            print(f'  Magic link generation failed: {e} — using plain URL', flush=True)
-            review_url = REVIEW_BASE_URL
-    else:
-        review_url = REVIEW_BASE_URL
-        print('  GITHUB_WORKFLOW_PAT not set — using plain review URL', flush=True)
+    review_url = stats.get('review_url', REVIEW_BASE_URL)
 
     new_spam_rows = ''.join(
         f'<tr><td>{d}</td></tr>' for d in sorted(stats['new_spam_domains'])
@@ -665,6 +652,19 @@ def main():
 
     # Step 6: send report
     print('\n[6/6] Sending email report...', flush=True)
+    review_url_base = config.get('review_page_url', REVIEW_BASE_URL).rstrip('/')
+    workflow_pat = os.environ.get('GITHUB_WORKFLOW_PAT', '')
+    if workflow_pat:
+        try:
+            review_url = generate_magic_session(review_url_base)
+            print(f'  Magic link session generated (expires 25h)', flush=True)
+        except Exception as e:
+            print(f'  Magic link generation failed: {e} — using plain URL', flush=True)
+            review_url = review_url_base
+    else:
+        review_url = review_url_base
+        print('  GITHUB_WORKFLOW_PAT not set — using plain review URL', flush=True)
+
     stats = {
         'inbox_total': sum(inbox_domains.values()),
         'unique_domains': len(inbox_domains),
@@ -676,6 +676,7 @@ def main():
         'bulk_trashed': bulk_trashed,
         'trashed_per_domain': trashed_per_domain,
         'report_email': report_email,
+        'review_url': review_url,
     }
     send_report(service, report_email, stats)
 

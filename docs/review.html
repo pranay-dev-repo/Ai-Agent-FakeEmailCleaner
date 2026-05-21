@@ -45,9 +45,9 @@
 
   <h1>Email Domain Review</h1>
 
-  <!-- Token Card -->
-  <div class="card" id="token-card">
-    <h3>GitHub Token</h3>
+  <!-- Fallback token card — hidden when opened via magic link -->
+  <div class="card" id="token-card" style="display:none">
+    <h3>GitHub Token <span style="font-size:11px;color:#d93025;font-weight:normal;text-transform:none">(manual fallback — open via email link for automatic auth)</span></h3>
     <div class="auth-row">
       <input type="password" id="pat" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
       <button class="btn btn-blue" onclick="saveToken()">Save</button>
@@ -78,39 +78,17 @@
 <script>
 const REPO        = 'pranay-dev-repo/Ai-Agent-FakeEmailCleaner';
 const JSON_URL    = `https://raw.githubusercontent.com/${REPO}/main/email_cleaner_agent/domain_review.json`;
-const SESSION_URL = `https://raw.githubusercontent.com/${REPO}/main/docs/session.json`;
+// Netlify function URL — handles auth server-side (PAT never leaves server)
+const DISPATCH_FN = '/.netlify/functions/dispatch';
+// Fallback: direct GitHub API (used only with manual localStorage PAT)
 const WF_URL      = `https://api.github.com/repos/${REPO}/actions/workflows/manage_email_domains.yml/dispatches`;
 
-// ── Magic link auth ──────────────────────────────────────────────────────────
-function hexToBytes(hex) {
-  const b = new Uint8Array(hex.length / 2);
-  for (let i = 0; i < b.length; i++) b[i] = parseInt(hex.substr(i * 2, 2), 16);
-  return b;
+// ── Token from magic link ─────────────────────────────────────────────────────
+function getMagicToken() {
+  return new URLSearchParams(window.location.search).get('t') || null;
 }
 
-async function getPatFromMagicLink() {
-  const keyHex = new URLSearchParams(window.location.search).get('t');
-  if (!keyHex || keyHex.length < 8) return null;
-  try {
-    const r = await fetch(SESSION_URL + '?t=' + Date.now());
-    if (!r.ok) return null;
-    const session = await r.json();
-    if (!session.enc || !session.expires_at) return null;
-    if (new Date(session.expires_at) < new Date()) {
-      showStatus('Session link expired. Wait for the next daily report email.', false);
-      return null;
-    }
-    const key = hexToBytes(keyHex);
-    const enc = hexToBytes(session.enc);
-    const dec = new Uint8Array(enc.length);
-    for (let i = 0; i < enc.length; i++) dec[i] = enc[i] ^ key[i % key.length];
-    return new TextDecoder().decode(dec);
-  } catch (e) {
-    return null;
-  }
-}
-
-// ── Token (fallback manual entry) ────────────────────────────────────────────
+// ── Manual token fallback (localStorage) ─────────────────────────────────────
 function saveToken() {
   const v = document.getElementById('pat').value.trim();
   if (!v) return;
@@ -131,15 +109,17 @@ function showTokenSaved() {
 
 // ── Init ─────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  const hasMagicLink = !!new URLSearchParams(window.location.search).get('t');
-  if (hasMagicLink) {
-    document.getElementById('token-card').style.display = 'none';
+  const token = getMagicToken();
+  if (token) {
+    // Magic link — no manual token entry needed
     const s = document.getElementById('status');
-    s.textContent = 'Authenticated via email link.';
+    s.textContent = '✓ Authenticated via email link. One-time use.';
     s.className = 'ok';
     s.style.display = 'block';
-  } else if (localStorage.getItem('gh_pat')) {
-    showTokenSaved();
+  } else {
+    // No magic link — show manual token card
+    document.getElementById('token-card').style.display = 'block';
+    if (localStorage.getItem('gh_pat')) showTokenSaved();
   }
   load();
 });
@@ -167,7 +147,7 @@ function render(data) {
   const updated = data.generated_at ? new Date(data.generated_at).toLocaleString() : '';
   meta.textContent = `— ${list.length} domains · updated ${updated}`;
 
-  const rows = list.map((d, i) => `
+  const rows = list.map((d) => `
     <tr>
       <td style="width:36px">
         <input type="checkbox" value="${d.domain}"
@@ -196,9 +176,7 @@ function render(data) {
 }
 
 // ── Selection helpers ────────────────────────────────────────────────────────
-function allCheckboxes() {
-  return document.querySelectorAll('#body input[type=checkbox]');
-}
+function allCheckboxes() { return document.querySelectorAll('#body input[type=checkbox]'); }
 function selectAll()  { allCheckboxes().forEach(c => c.checked = true);  updateCount(); }
 function selectNone() { allCheckboxes().forEach(c => c.checked = false); updateCount(); }
 function getSelected() {
@@ -220,9 +198,6 @@ function showStatus(msg, ok) {
 }
 
 async function submit(action) {
-  const pat = await getPatFromMagicLink() || localStorage.getItem('gh_pat');
-  if (!pat) { showStatus('No auth token. Open the link from your email report.', false); return; }
-
   const domains = getSelected();
   if (!domains.length) { showStatus('No domains selected.', false); return; }
 
@@ -230,17 +205,36 @@ async function submit(action) {
   document.getElementById('bl-btn').disabled = true;
   showStatus(`Submitting ${domains.length} domain(s)...`, true);
 
+  const magicToken = getMagicToken();
+
   try {
-    const resp = await fetch(WF_URL, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${pat}`,
-        Accept: 'application/vnd.github+json',
-        'Content-Type': 'application/json',
-        'X-GitHub-Api-Version': '2022-11-28',
-      },
-      body: JSON.stringify({ ref: 'main', inputs: { action, domains: domains.join(', ') } }),
-    });
+    let resp;
+    if (magicToken) {
+      // Secure path: Netlify Function holds the PAT, validates one-time token server-side
+      resp = await fetch(DISPATCH_FN, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: magicToken, action, domains: domains.join(', ') }),
+      });
+    } else {
+      // Fallback: direct GitHub API with manual PAT from localStorage
+      const pat = localStorage.getItem('gh_pat');
+      if (!pat) {
+        showStatus('No auth token. Open the link from your email report.', false);
+        updateCount();
+        return;
+      }
+      resp = await fetch(WF_URL, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${pat}`,
+          Accept: 'application/vnd.github+json',
+          'Content-Type': 'application/json',
+          'X-GitHub-Api-Version': '2022-11-28',
+        },
+        body: JSON.stringify({ ref: 'main', inputs: { action, domains: domains.join(', ') } }),
+      });
+    }
 
     if (resp.status === 204) {
       showStatus(`✓ ${domains.length} domain(s) queued for ${action}. Closing in 3 seconds...`, true);
@@ -248,7 +242,7 @@ async function submit(action) {
       setTimeout(() => window.close(), 3000);
     } else {
       const txt = await resp.text();
-      showStatus(`Error ${resp.status} — check token has repo + workflow scopes. ${txt}`, false);
+      showStatus(`Error ${resp.status} — ${txt}`, false);
       updateCount();
     }
   } catch (e) {
