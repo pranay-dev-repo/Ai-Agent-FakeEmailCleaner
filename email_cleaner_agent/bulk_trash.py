@@ -104,6 +104,17 @@ DOMAINS_TO_TRASH = [
     "ui.dev",
     "upskill.mygreatlearning.com",
     "upwork.com",
+    "cred.club",
+    "crio.co.in",
+    "crio.in",
+    "indeed.com",
+    "integratedregistry.in",
+    "mail.perplexity.ai",
+    "mkttech.in",
+    "money.livemint.com",
+    "olaelectric.com",
+    "quant.in",
+    "tdsmail.taxosmart.in",
 ]
 
 creds = Credentials(
