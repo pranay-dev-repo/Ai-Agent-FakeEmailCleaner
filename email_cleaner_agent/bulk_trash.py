@@ -183,6 +183,7 @@ DOMAINS_TO_TRASH = [
     "2coms.com",
     "atlassystems.com",
     "bitbybitsolutions.co.in",
+    "coursera.org",
     "blenheimchalcot.com",
     "bluerose-tech.com",
     "diamondpick.com",

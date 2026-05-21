@@ -273,6 +273,45 @@ def run_bulk_trash(service, trash_domains: set, whitelist_domains: set | None = 
     return total, per_domain
 
 
+# ── Subject keyword trash ──────────────────────────────────────────────────────
+
+def trash_by_subject_keywords(service, keywords: list):
+    if not keywords:
+        return
+    print('[4b] Trashing emails by subject keywords...', flush=True)
+    for keyword in keywords:
+        msg_ids = []
+        page_token = None
+        while True:
+            kwargs = {'userId': 'me', 'q': f'in:inbox subject:"{keyword}"', 'maxResults': 500}
+            if page_token:
+                kwargs['pageToken'] = page_token
+            try:
+                result = service.users().messages().list(**kwargs).execute()
+            except HttpError as e:
+                print(f'  Error searching subject "{keyword}": {e}', flush=True)
+                break
+            msg_ids.extend([m['id'] for m in result.get('messages', [])])
+            page_token = result.get('nextPageToken')
+            if not page_token:
+                break
+
+        if not msg_ids:
+            print(f'  subject:"{keyword}" — 0 found', flush=True)
+            continue
+
+        for i in range(0, len(msg_ids), 100):
+            batch = service.new_batch_http_request()
+            for mid in msg_ids[i:i + 100]:
+                batch.add(service.users().messages().trash(userId='me', id=mid))
+            try:
+                batch.execute()
+            except HttpError as e:
+                print(f'  Batch error for subject "{keyword}": {e}', flush=True)
+
+        print(f'  subject:"{keyword}" — trashed {len(msg_ids)}', flush=True)
+
+
 # ── Domain management via email ────────────────────────────────────────────────
 
 def _parse_domain_list(text: str) -> list:
@@ -589,6 +628,10 @@ def main():
     all_trash_domains = load_trash_domains()
     print(f'\n      Total domains in trash list: {len(all_trash_domains)}', flush=True)
     bulk_trashed, trashed_per_domain = run_bulk_trash(service, all_trash_domains, whitelist)
+
+    # Step 4b: trash by subject keywords
+    subject_keywords = config.get('subject_keywords_trash', [])
+    trash_by_subject_keywords(service, subject_keywords)
 
     # Step 5: run email_cleaner.py
     print('\n[5/5] Running email_cleaner.py...', flush=True)

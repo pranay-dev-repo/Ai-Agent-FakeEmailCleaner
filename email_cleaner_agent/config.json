@@ -6,6 +6,9 @@
     "noreply@promotions.com",
     "deals@shop.com"
   ],
+  "subject_keywords_trash": [
+    "Job"
+  ],
   "ai_detection": {
     "enabled": true,
     "max_emails_per_run": 50
