@@ -445,36 +445,19 @@ def send_report(service, to_email: str, stats: dict):
     ) or '<tr><td colspan="2"><i>None</i></td></tr>'
     to_email = stats.get('report_email', to_email)
     review_domain_list = sorted(stats['review_domains'])
-    if review_domain_list:
-        bulk_body = (
-            'WHITELIST: \n'
-            'BLACKLIST: ' + ', '.join(review_domain_list) + '\n\n'
-            '(Move domains between WHITELIST/BLACKLIST lines as needed, then send)'
-        )
-        manage_all_href = _make_mailto(to_email, '[EMAIL-CLEANER] manage', bulk_body)
-        manage_all_btn = (
-            f'<a href="{manage_all_href}" style="display:inline-block;margin-bottom:12px;'
-            f'background:#5f6368;color:#fff;padding:6px 14px;border-radius:4px;'
-            f'text-decoration:none;font-size:13px">&#9998; Manage All Domains</a>'
-        )
-        review_rows = ''.join(
-            f'''<tr style="background:{'#f8f9fa' if i % 2 == 0 else '#fff'}">
-              <td style="padding:8px 12px">{d}</td>
-              <td style="padding:8px 12px;text-align:right">{stats["inbox_domain_counts"].get(d, 0)}</td>
-              <td style="padding:6px 10px;text-align:center">
-                <a href="{_make_mailto(to_email, f'[EMAIL-CLEANER] whitelist {d}')}"
-                   style="background:#0f9d58;color:#fff;padding:4px 10px;border-radius:4px;text-decoration:none;font-size:12px">&#10003; Whitelist</a>
-              </td>
-              <td style="padding:6px 10px;text-align:center">
-                <a href="{_make_mailto(to_email, f'[EMAIL-CLEANER] blacklist {d}')}"
-                   style="background:#d93025;color:#fff;padding:4px 10px;border-radius:4px;text-decoration:none;font-size:12px">&#10007; Blacklist</a>
-              </td>
-            </tr>'''
-            for i, d in enumerate(review_domain_list)
-        )
-    else:
-        manage_all_btn = ''
-        review_rows = '<tr><td colspan="4"><i>None</i></td></tr>'
+    review_btn = (
+        '<a href="https://pranay-dev-repo.github.io/Ai-Agent-FakeEmailCleaner/review.html"'
+        ' style="display:inline-block;background:#1a73e8;color:#fff;padding:9px 20px;'
+        'border-radius:5px;text-decoration:none;font-size:14px;font-weight:bold">'
+        'Review &amp; Manage Domains</a>'
+    )
+    review_rows = ''.join(
+        f'<tr style="background:{"#f8f9fa" if i % 2 == 0 else "#fff"}">'
+        f'<td style="padding:8px 12px">{d}</td>'
+        f'<td style="padding:8px 12px;text-align:right">{stats["inbox_domain_counts"].get(d, 0)}</td>'
+        f'</tr>'
+        for i, d in enumerate(review_domain_list)
+    ) or '<tr><td colspan="2"><i>None</i></td></tr>'
 
     html = f"""
 <html><body style="font-family:Arial,sans-serif;color:#222;max-width:650px;margin:auto">
@@ -510,18 +493,14 @@ def send_report(service, to_email: str, stats: dict):
 </table>
 
 <h3 style="margin-top:24px;color:#5f6368">Review Domains</h3>
-<p style="font-size:13px;color:#666;line-height:1.6">
-  Click <b>&#10003; Whitelist</b> or <b>&#10007; Blacklist</b> on any domain to open a pre-composed email —
-  just send it and the next daily run will apply the change automatically.<br>
-  Use <b>Manage All</b> to handle multiple domains at once.
+<p style="font-size:13px;color:#666;line-height:1.8;margin-bottom:12px">
+  Select multiple domains, then whitelist or blacklist them in one click.
 </p>
-{manage_all_btn}
-<table style="width:100%;border-collapse:collapse;font-size:13px">
+{review_btn}
+<table style="width:100%;border-collapse:collapse;font-size:13px;margin-top:14px">
   <tr style="background:#5f6368;color:#fff">
     <th style="padding:8px 12px;text-align:left">Domain</th>
     <th style="padding:8px 12px;text-align:right">Inbox</th>
-    <th style="padding:8px 12px;text-align:center">Whitelist</th>
-    <th style="padding:8px 12px;text-align:center">Blacklist</th>
   </tr>
   {review_rows}
 </table>
