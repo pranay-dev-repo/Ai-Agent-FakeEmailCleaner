@@ -15,21 +15,21 @@
     "enabled": true
   },
   "whitelist_domains": [
-    "jainam.in",
-    "naukri.com",
-    "communications.bankofindia.co.in",
     "alerts.bankofindia.co.in",
-    "email.openai.com",
-    "minis.naukri.com",
-    "groww.in",
-    "money.hindustantimes.com",
-    "pharmeasy.in",
-    "jio.com",
-    "upwork.com",
     "atidan.com",
+    "communications.bankofindia.co.in",
+    "email.openai.com",
     "glassdoor.co.in",
+    "groww.in",
+    "jainam.in",
+    "jio.com",
     "jmfl.com",
+    "minis.naukri.com",
+    "money.hindustantimes.com",
+    "naukri.com",
+    "pharmeasy.in",
     "stockedge.com",
-    "upskill.mygreatlearning.com"
+    "upskill.mygreatlearning.com",
+    "upwork.com"
   ]
 }

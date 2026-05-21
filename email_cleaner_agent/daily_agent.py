@@ -186,11 +186,22 @@ def classify_with_groq(domains: list, api_key: str) -> list:
 
 # ── Bulk trash (inline, same logic as bulk_trash.py) ──────────────────────────
 
-def run_bulk_trash(service, trash_domains: set):
+def run_bulk_trash(service, trash_domains: set, whitelist_domains: set | None = None):
     print('[4/5] Running bulk trash...', flush=True)
+    whitelist_domains = whitelist_domains or set()
+    safe_trash_domains = {
+        d for d in trash_domains
+        if not any(d == w or d.endswith('.' + w) for w in whitelist_domains)
+    }
+    skipped = sorted(set(trash_domains) - safe_trash_domains)
+    if skipped:
+        print(f'      Skipping {len(skipped)} whitelisted domain(s) from bulk trash:', flush=True)
+        for d in skipped:
+            print(f'        KEEP {d}', flush=True)
+
     total = 0
     per_domain = {}
-    for idx, domain in enumerate(sorted(trash_domains)):
+    for idx, domain in enumerate(sorted(safe_trash_domains)):
         # Rate limit: pause every 5 domains to stay within Gmail quota
         if idx > 0 and idx % 5 == 0:
             time.sleep(1)
@@ -261,6 +272,10 @@ def send_report(service, to_email: str, stats: dict):
         f'<tr><td>{d}</td><td style="text-align:right">{c}</td></tr>'
         for d, c in sorted(stats['trashed_per_domain'].items(), key=lambda x: -x[1])
     ) or '<tr><td colspan="2"><i>None</i></td></tr>'
+    review_rows = ''.join(
+        f'<tr><td>{d}</td><td style="text-align:right">{stats["inbox_domain_counts"].get(d, 0)}</td></tr>'
+        for d in sorted(stats['review_domains'])
+    ) or '<tr><td colspan="2"><i>None</i></td></tr>'
 
     html = f"""
 <html><body style="font-family:Arial,sans-serif;color:#222;max-width:650px;margin:auto">
@@ -293,6 +308,25 @@ def send_report(service, to_email: str, stats: dict):
     <td style="padding:10px 14px;font-weight:bold">Emails trashed this run</td>
     <td style="padding:10px 14px;text-align:right;font-weight:bold">{stats['bulk_trashed']:,}</td>
   </tr>
+</table>
+
+<h3 style="margin-top:24px;color:#5f6368">Review Domains</h3>
+<p style="font-size:13px;color:#666;line-height:1.6">
+  To move domains, open GitHub Actions &rarr; <b>Manage Email Domains</b>,
+  click <b>Run workflow</b>, choose <b>whitelist</b> or <b>blacklist</b>,
+  and paste one or more domains from this table.
+</p>
+<p style="font-size:13px">
+  <a href="https://github.com/pranay-dev-repo/Ai-Agent-FakeEmailCleaner/actions/workflows/manage_email_domains.yml">
+    Open Manage Email Domains workflow
+  </a>
+</p>
+<table style="width:100%;border-collapse:collapse;font-size:13px">
+  <tr style="background:#5f6368;color:#fff">
+    <th style="padding:8px 12px;text-align:left">Domain</th>
+    <th style="padding:8px 12px;text-align:right">Inbox count</th>
+  </tr>
+  {review_rows}
 </table>
 
 <h3 style="margin-top:24px;color:#1a73e8">New Spam Domains Detected</h3>
@@ -381,7 +415,7 @@ def main():
     # Step 4: run bulk trash (reload list after any additions)
     all_trash_domains = load_trash_domains()
     print(f'\n      Total domains in trash list: {len(all_trash_domains)}', flush=True)
-    bulk_trashed, trashed_per_domain = run_bulk_trash(service, all_trash_domains)
+    bulk_trashed, trashed_per_domain = run_bulk_trash(service, all_trash_domains, whitelist)
 
     # Step 5: run email_cleaner.py
     print('\n[5/5] Running email_cleaner.py...', flush=True)
@@ -399,6 +433,8 @@ def main():
         'unique_domains': len(inbox_domains),
         'new_unknown_count': len(new_domains),
         'new_spam_domains': spam_new,
+        'review_domains': new_domains,
+        'inbox_domain_counts': dict(inbox_domains),
         'total_trash_domains': len(all_trash_domains),
         'bulk_trashed': bulk_trashed,
         'trashed_per_domain': trashed_per_domain,
