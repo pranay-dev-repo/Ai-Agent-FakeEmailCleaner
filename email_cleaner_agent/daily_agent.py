@@ -52,21 +52,24 @@ def get_gmail_service():
 
 # ── Domain scanning ────────────────────────────────────────────────────────────
 
-def scan_inbox_domains(service) -> Counter:
+def scan_inbox_domains(service, max_emails: int = 0) -> Counter:
     EMAIL_RE = re.compile(r'<([^>]+)>', re.IGNORECASE)
 
     print('[1/5] Scanning inbox for sender domains...', flush=True)
     messages = []
     page_token = None
     while True:
-        kwargs = {'userId': 'me', 'q': 'in:inbox', 'maxResults': 500}
+        fetch = min(500, max_emails - len(messages)) if max_emails else 500
+        kwargs = {'userId': 'me', 'q': 'in:inbox', 'maxResults': fetch}
         if page_token:
             kwargs['pageToken'] = page_token
         result = service.users().messages().list(**kwargs).execute()
         messages.extend(result.get('messages', []))
         page_token = result.get('nextPageToken')
-        if not page_token:
+        if not page_token or (max_emails and len(messages) >= max_emails):
             break
+    if max_emails:
+        messages = messages[:max_emails]
     print(f'      {len(messages)} inbox emails found', flush=True)
 
     domains: Counter = Counter()
@@ -568,7 +571,8 @@ def main():
     whitelist = set(d.lower() for d in config.get('whitelist_domains', []))
 
     # Step 1: scan inbox domains
-    inbox_domains = scan_inbox_domains(service)
+    max_scan = int(config.get('max_scan_emails', 0))
+    inbox_domains = scan_inbox_domains(service, max_emails=max_scan)
 
     # Step 2: find new unknown domains
     existing_trash = load_trash_domains()

@@ -1,6 +1,7 @@
 {
   "report_email": "pranayshah465@gmail.com",
   "look_back_hours": 876000,
+  "max_scan_emails": 100,
   "blocklist": [
     "newsletter@example.com",
     "noreply@promotions.com",
