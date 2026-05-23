@@ -278,6 +278,16 @@ DOMAINS_TO_TRASH = [
     "vnnogile.com",
     "wisebee.in",
     "zarca.com",
+    "citiustech.com",
+    "cloverinfotech.com",
+    "lntinfotech.com",
+    "mail.interviewkickstart.com",
+    "neosofttech.com",
+    "pmamit.com",
+    "rebit.org.in",
+    "tekspire.in",
+    "thinkpeople.in",
+    "xebia.com",
 ]
 
 creds = Credentials(
