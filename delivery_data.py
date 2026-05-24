@@ -173,7 +173,6 @@ class TodayDeliveryStock:
     sector: str = ""
     sub_sector: str = ""
     cap_category: str = ""
-    name: str = ""
 
     @property
     def technical_score(self) -> float:
@@ -294,21 +293,22 @@ def _download_bhavcopy(session: requests.Session, day: date, timeout_seconds: in
     return [{(k or "").strip(): (v or "").strip() for k, v in row.items()} for row in reader]
 
 
-def _fetch_equity_names(session: requests.Session, timeout_seconds: int) -> dict[str, str]:
+def _fetch_equity_symbols(session: requests.Session, timeout_seconds: int) -> frozenset[str]:
+    """Return the set of NSE symbols listed as pure equity (SERIES=EQ), excluding ETFs and other instruments."""
     url = "https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv"
     try:
         resp = session.get(url, timeout=timeout_seconds)
         resp.raise_for_status()
         reader = csv.DictReader(io.StringIO(resp.text.strip()))
-        names: dict[str, str] = {}
+        syms: set[str] = set()
         for row in reader:
+            series = (row.get("SERIES") or "").strip().upper()
             sym = (row.get("SYMBOL") or "").strip().upper()
-            raw_name = (row.get("NAME OF COMPANY") or "").strip()
-            if sym and raw_name:
-                names[sym] = raw_name.title()
-        return names
+            if sym and series == "EQ":
+                syms.add(sym)
+        return frozenset(syms)
     except Exception:
-        return {}
+        return frozenset()
 
 
 def _make_session() -> requests.Session:
@@ -410,7 +410,7 @@ def fetch_today_delivery_top(
 ) -> TodayDeliverySnapshot:
     """Fetch the most recent trading day's NSE delivery data for all EQ stocks, sorted by delivery % descending."""
     session = _make_session()
-    equity_names = _fetch_equity_names(session, timeout_seconds)
+    equity_symbols = _fetch_equity_symbols(session, timeout_seconds)
     errors: list[str] = []
 
     for offset in range(0, 8):
@@ -431,6 +431,9 @@ def fetch_today_delivery_top(
             symbol = row.get("SYMBOL", "").strip().upper()
             if not symbol:
                 continue
+            # Skip ETFs and non-equity instruments using the equity master list
+            if equity_symbols and symbol not in equity_symbols:
+                continue
             delivery_percent = _to_float(row.get("DELIV_PER", row.get(" DELIV_PER", "")))
             traded_qty = _to_int(row.get("TTL_TRD_QNTY", row.get(" TTL_TRD_QNTY", "")))
             delivery_qty = _to_int(row.get("DELIV_QTY", row.get(" DELIV_QTY", "")))
@@ -450,7 +453,6 @@ def fetch_today_delivery_top(
                 sector=_SYMBOL_TO_SECTOR.get(symbol, ""),
                 sub_sector=_SYMBOL_TO_SUBSECTOR.get(symbol, ""),
                 cap_category=_cap_category(symbol),
-                name=equity_names.get(symbol, ""),
             ))
 
         if stocks:

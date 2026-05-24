@@ -180,7 +180,6 @@ def build_delivery_html(snapshot: TodayDeliverySnapshot | None) -> str:
         '<tr style="background:#f1f3f4">'
         '<th style="padding:6px 10px;text-align:left;color:#555;font-size:12px">#</th>'
         '<th style="padding:6px 10px;text-align:left;color:#555;font-size:12px">Symbol</th>'
-        '<th style="padding:6px 10px;text-align:left;color:#555;font-size:12px">Company</th>'
         '<th style="padding:6px 10px;text-align:right;color:#555;font-size:12px">Delivery %</th>'
         '<th style="padding:6px 10px;text-align:right;color:#555;font-size:12px">Close</th>'
         '<th style="padding:6px 10px;text-align:right;color:#555;font-size:12px">Del Qty</th>'
@@ -199,8 +198,7 @@ def build_delivery_html(snapshot: TodayDeliverySnapshot | None) -> str:
         rows = "".join(
             f'<tr style="background:{"#f8f9fa" if i % 2 == 0 else "#fff"}">'
             f'<td style="padding:6px 10px;border-bottom:1px solid #eee;color:#999;font-size:12px">{i}</td>'
-            f'<td style="padding:6px 10px;border-bottom:1px solid #eee;font-weight:bold;white-space:nowrap">{s.symbol}</td>'
-            f'<td style="padding:6px 10px;border-bottom:1px solid #eee;color:#444;font-size:12px">{(s.name[:28] + "…") if len(s.name) > 28 else s.name}</td>'
+            f'<td style="padding:6px 10px;border-bottom:1px solid #eee;font-weight:bold">{s.symbol}</td>'
             f'<td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right;color:#0f9d58;font-weight:bold">{s.delivery_percent:.1f}%</td>'
             f'<td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right">&#8377;{s.close_price:.2f}</td>'
             f'<td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right;color:#666">{_format_qty(s.delivery_qty)}</td>'
@@ -242,12 +240,9 @@ def build_sector_html(sector_stocks: list[TodayDeliveryStock]) -> str:
                 f'border-bottom:1px solid #c5d5f5">{sub_sector}</td></tr>'
             )
             for s in stocks:
-                short_name = (s.name[:22] + "…") if len(s.name) > 22 else s.name
                 inner_rows.append(
                     f'<tr>'
-                    f'<td style="padding:6px 10px;border-bottom:1px solid #eee">'
-                    f'<span style="font-weight:bold">{s.symbol}</span>'
-                    f'<br><span style="color:#888;font-size:11px">{short_name}</span></td>'
+                    f'<td style="padding:6px 10px;border-bottom:1px solid #eee;font-weight:bold">{s.symbol}</td>'
                     f'<td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right">&#8377;{s.close_price:.2f}</td>'
                     f'<td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right">'
                     f'<span style="color:{s.fund_color};font-weight:bold">{s.delivery_percent:.1f}%</span>'
