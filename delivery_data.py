@@ -268,6 +268,14 @@ class DeliverySnapshot:
         return bool(self.days and self.sectors)
 
 
+_ETF_KEYWORDS = ("ETF", "BEES", "NIFTY", "SENSEX", "GOLD", "SILVER", "LIQUID", "DEBT", "BOND", "GSEC", "ENIFTY", "MONQ", "MOGSEC", "NPBET")
+
+
+def _is_etf_symbol(symbol: str) -> bool:
+    su = symbol.upper()
+    return any(kw in su for kw in _ETF_KEYWORDS)
+
+
 def _to_int(value: str) -> int:
     cleaned = (value or "").replace(",", "").strip()
     if not cleaned or cleaned == "-":
@@ -431,7 +439,9 @@ def fetch_today_delivery_top(
             symbol = row.get("SYMBOL", "").strip().upper()
             if not symbol:
                 continue
-            # Skip ETFs and non-equity instruments using the equity master list
+            # Skip ETFs: keyword pattern check + equity master whitelist
+            if _is_etf_symbol(symbol):
+                continue
             if equity_symbols and symbol not in equity_symbols:
                 continue
             delivery_percent = _to_float(row.get("DELIV_PER", row.get(" DELIV_PER", "")))
