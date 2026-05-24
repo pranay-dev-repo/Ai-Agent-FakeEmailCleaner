@@ -9,6 +9,63 @@ from statistics import mean
 import requests
 
 
+SECTOR_SUB_MAP: dict[str, dict[str, list[str]]] = {
+    "Banks & Financials": {
+        "Private Banks": ["HDFCBANK", "ICICIBANK", "KOTAKBANK", "AXISBANK", "INDUSINDBK", "BANDHANBNK", "AUBANK", "FEDERALBNK"],
+        "PSU Banks": ["SBIN", "PNB", "BANKBARODA", "CANARABANK", "UNIONBANK", "IOBBANK", "MAHABANK"],
+        "NBFCs": ["BAJFINANCE", "BAJAJFINSV", "MUTHOOTFIN", "CHOLAFIN", "SHRIRAMFIN", "M&MFIN"],
+        "Insurance": ["HDFCLIFE", "SBILIFE", "ICICIPRULI", "LICI", "GICRE"],
+    },
+    "Information Technology": {
+        "Large Cap": ["TCS", "INFY", "HCLTECH", "WIPRO"],
+        "Mid Cap": ["TECHM", "LTIM", "MPHASIS", "PERSISTENT", "COFORGE", "LTTS"],
+        "Small Cap": ["KPITTECH", "TATAELXSI", "CYIENT", "MASTEK"],
+    },
+    "Auto": {
+        "4-Wheeler": ["MARUTI", "M&M", "TATAMOTORS", "ESCORTS", "FORCEMOT"],
+        "2-Wheeler": ["BAJAJ-AUTO", "EICHERMOT", "HEROMOTOCO", "TVSMOTOR"],
+        "Ancillary": ["MOTHERSON", "BOSCHLTD", "MINDAIND", "EXIDEIND", "AMARAJABAT", "SUNDRMFAST"],
+    },
+    "Pharma & Healthcare": {
+        "Large Pharma": ["SUNPHARMA", "CIPLA", "DRREDDY", "DIVISLAB", "LUPIN", "ZYDUSLIFE"],
+        "Mid Pharma": ["TORNTPHARM", "AUROPHARMA", "ALKEM", "GLENMARK", "IPCA", "ABBOTINDIA"],
+        "Hospitals": ["APOLLOHOSP", "MAXHEALTH", "FORTIS", "KIMS", "RAINBOW"],
+    },
+    "FMCG & Consumption": {
+        "Staples": ["HINDUNILVR", "ITC", "NESTLEIND", "BRITANNIA", "DABUR", "GODREJCP"],
+        "Personal Care": ["MARICO", "COLPAL", "EMAMILTD", "BAJAJCON"],
+        "Beverages": ["TATACONSUM", "VARUNBEV", "MCDOWELL-N"],
+    },
+    "Energy & Utilities": {
+        "Oil & Gas": ["RELIANCE", "ONGC", "BPCL", "IOC", "GAIL", "OIL", "MGL", "IGL"],
+        "Power": ["NTPC", "POWERGRID", "TATAPOWER", "ADANIPOWER", "CESC", "TORNTPOWER"],
+        "Renewables": ["ADANIGREEN", "NHPC", "SJVN", "INOXGREEN"],
+    },
+    "Metals & Materials": {
+        "Steel": ["TATASTEEL", "JSWSTEEL", "SAIL", "JINDALSTEL", "NMDC", "MOIL"],
+        "Non-Ferrous": ["HINDALCO", "VEDL", "NATIONALUM", "HINDCOPPER", "HINDZINC"],
+        "Cement": ["ULTRACEMCO", "GRASIM", "SHREECEM", "ACC", "AMBUJACEM", "JKCEMENT"],
+    },
+    "Capital Goods & Infra": {
+        "Capital Goods": ["LT", "SIEMENS", "ABB", "BEL", "BHEL", "THERMAX"],
+        "Defence": ["HAL", "BEML", "MTAR", "PARAS", "COCHINSHIP"],
+        "Infrastructure": ["IRCON", "RVNL", "ADANIPORTS", "CONCOR", "APLAPOLLO"],
+    },
+    "Realty": {
+        "Developers": ["DLF", "GODREJPROP", "OBEROIRLTY", "PRESTIGE", "BRIGADE", "LODHA", "MAHLIFE"],
+        "Commercial": ["PHOENIXLTD", "NEXUSSELECT"],
+    },
+}
+
+_SYMBOL_TO_SECTOR: dict[str, str] = {}
+_SYMBOL_TO_SUBSECTOR: dict[str, str] = {}
+for _sector, _subsectors in SECTOR_SUB_MAP.items():
+    for _subsector, _syms in _subsectors.items():
+        for _sym in _syms:
+            _SYMBOL_TO_SECTOR[_sym] = _sector
+            _SYMBOL_TO_SUBSECTOR[_sym] = _subsector
+
+
 SECTOR_SYMBOLS: dict[str, list[str]] = {
     "Banks & Financials": [
         "HDFCBANK", "ICICIBANK", "SBIN", "KOTAKBANK", "AXISBANK",
@@ -56,6 +113,64 @@ class TodayDeliveryStock:
     close_price: float
     traded_qty: int
     delivery_qty: int
+    high_price: float = 0.0
+    low_price: float = 0.0
+    sector: str = ""
+    sub_sector: str = ""
+
+    @property
+    def technical_score(self) -> float:
+        rng = self.high_price - self.low_price
+        if rng <= 0:
+            return 50.0
+        return (self.close_price - self.low_price) / rng * 100
+
+    @property
+    def combined_score(self) -> float:
+        return self.delivery_percent * 0.5 + self.technical_score * 0.5
+
+    @property
+    def fund_label(self) -> str:
+        if self.delivery_percent >= 65:
+            return "Strong"
+        if self.delivery_percent >= 45:
+            return "Moderate"
+        return "Weak"
+
+    @property
+    def fund_color(self) -> str:
+        if self.delivery_percent >= 65:
+            return "#0f9d58"
+        if self.delivery_percent >= 45:
+            return "#f9ab00"
+        return "#d93025"
+
+    @property
+    def tech_label(self) -> str:
+        ts = self.technical_score
+        if ts >= 60:
+            return "Bullish"
+        if ts >= 40:
+            return "Neutral"
+        return "Bearish"
+
+    @property
+    def tech_color(self) -> str:
+        ts = self.technical_score
+        if ts >= 60:
+            return "#0f9d58"
+        if ts >= 40:
+            return "#f9ab00"
+        return "#d93025"
+
+    @property
+    def tech_arrow(self) -> str:
+        ts = self.technical_score
+        if ts >= 60:
+            return "↑"
+        if ts >= 40:
+            return "→"
+        return "↓"
 
 
 @dataclass
@@ -247,12 +362,18 @@ def fetch_today_delivery_top(
             close_price = _to_float(row.get("CLOSE_PRICE", row.get(" CLOSE_PRICE", "")))
             if delivery_percent <= 0 or traded_qty < min_traded_qty:
                 continue
+            high_price = _to_float(row.get("HIGH_PRICE", row.get(" HIGH_PRICE", "")))
+            low_price = _to_float(row.get("LOW_PRICE", row.get(" LOW_PRICE", "")))
             stocks.append(TodayDeliveryStock(
                 symbol=symbol,
                 delivery_percent=delivery_percent,
                 close_price=close_price,
                 traded_qty=traded_qty,
                 delivery_qty=delivery_qty,
+                high_price=high_price,
+                low_price=low_price,
+                sector=_SYMBOL_TO_SECTOR.get(symbol, ""),
+                sub_sector=_SYMBOL_TO_SUBSECTOR.get(symbol, ""),
             ))
 
         if stocks:
@@ -260,3 +381,13 @@ def fetch_today_delivery_top(
             return TodayDeliverySnapshot(stocks=stocks[:top_n], trade_date=day, errors=errors)
 
     return TodayDeliverySnapshot(stocks=[], trade_date=None, errors=errors[-5:])
+
+
+def build_sector_top(
+    stocks: list[TodayDeliveryStock],
+    top_n: int = 20,
+) -> list[TodayDeliveryStock]:
+    """Return top_n stocks from known sectors, ranked by combined fundamental+technical score."""
+    sector_stocks = [s for s in stocks if s.sector]
+    sector_stocks.sort(key=lambda s: s.combined_score, reverse=True)
+    return sector_stocks[:top_n]

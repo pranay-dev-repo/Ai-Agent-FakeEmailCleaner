@@ -12,7 +12,7 @@ from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-from delivery_data import TodayDeliverySnapshot, fetch_today_delivery_top
+from delivery_data import TodayDeliverySnapshot, TodayDeliveryStock, build_sector_top, fetch_today_delivery_top
 from fetcher import NewsItem, fetch_stock_news
 from file_handler import save_to_file
 from insights import generate_ai_insights, load_openai_key
@@ -171,7 +171,7 @@ def build_delivery_html(snapshot: TodayDeliverySnapshot | None) -> str:
               <td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right">{_format_qty(s.delivery_qty)}</td>
               <td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right">{_format_qty(s.traded_qty)}</td>
             </tr>"""
-        for idx, s in enumerate(snapshot.stocks, start=1)
+        for idx, s in enumerate(snapshot.stocks[:20], start=1)
     )
     return f"""
 <p style="color:#666;margin-bottom:8px">Trade date: <strong>{snapshot.trade_date:%d %b %Y}</strong> &bull; Sorted by delivery % (highest first)</p>
@@ -188,12 +188,65 @@ def build_delivery_html(snapshot: TodayDeliverySnapshot | None) -> str:
 </table>"""
 
 
+def build_sector_html(sector_stocks: list[TodayDeliveryStock]) -> str:
+    if not sector_stocks:
+        return '<p style="color:#666">No sector data available for today.</p>'
+
+    sector_order: list[str] = []
+    grouped: dict[str, dict[str, list[TodayDeliveryStock]]] = {}
+    for s in sector_stocks:
+        if s.sector not in grouped:
+            sector_order.append(s.sector)
+            grouped[s.sector] = {}
+        if s.sub_sector not in grouped[s.sector]:
+            grouped[s.sector][s.sub_sector] = []
+        grouped[s.sector][s.sub_sector].append(s)
+
+    parts: list[str] = []
+    for sector in sector_order:
+        inner_rows: list[str] = []
+        for sub_sector, stocks in grouped[sector].items():
+            inner_rows.append(
+                f'<tr><td colspan="4" style="padding:4px 10px;background:#e8f0fe;'
+                f'color:#174ea6;font-size:12px;font-weight:bold;'
+                f'border-bottom:1px solid #c5d5f5">{sub_sector}</td></tr>'
+            )
+            for s in stocks:
+                inner_rows.append(
+                    f'<tr>'
+                    f'<td style="padding:6px 10px;border-bottom:1px solid #eee;font-weight:bold">{s.symbol}</td>'
+                    f'<td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right">&#8377;{s.close_price:.2f}</td>'
+                    f'<td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right">'
+                    f'<span style="color:{s.fund_color};font-weight:bold">{s.delivery_percent:.1f}%</span>'
+                    f'<span style="color:{s.fund_color};font-size:11px"> {s.fund_label}</span></td>'
+                    f'<td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right">'
+                    f'<span style="color:{s.tech_color};font-weight:bold">{s.tech_arrow} {s.tech_label}</span>'
+                    f'<span style="color:#888;font-size:11px"> ({s.technical_score:.0f})</span></td>'
+                    f'</tr>'
+                )
+        parts.append(
+            f'<div style="margin-bottom:16px">'
+            f'<div style="background:#1a73e8;color:#fff;padding:6px 12px;border-radius:4px 4px 0 0;font-weight:bold;font-size:13px">{sector}</div>'
+            f'<table style="width:100%;border-collapse:collapse;font-size:13px">'
+            f'<tr style="background:#f1f3f4">'
+            f'<th style="padding:6px 10px;text-align:left;color:#555;font-size:12px">Symbol</th>'
+            f'<th style="padding:6px 10px;text-align:right;color:#555;font-size:12px">Close</th>'
+            f'<th style="padding:6px 10px;text-align:right;color:#555;font-size:12px">Fundamental</th>'
+            f'<th style="padding:6px 10px;text-align:right;color:#555;font-size:12px">Technical</th>'
+            f'</tr>'
+            f'{"".join(inner_rows)}'
+            f'</table></div>'
+        )
+    return "\n".join(parts)
+
+
 def send_email_report(
     items: list[NewsItem],
     insights: list[str],
     now: datetime,
     to_email: str,
     delivery_snapshot: TodayDeliverySnapshot | None = None,
+    sector_stocks: list[TodayDeliveryStock] | None = None,
 ):
     if not to_email:
         return
@@ -209,6 +262,7 @@ def send_email_report(
         for item in items
     )
     delivery_html = build_delivery_html(delivery_snapshot)
+    sector_html = build_sector_html(sector_stocks or [])
 
     html = f"""
 <html><body style="font-family:Arial,sans-serif;color:#222;max-width:650px;margin:auto">
@@ -219,8 +273,12 @@ def send_email_report(
 <h3 style="color:#0f9d58;margin-top:20px">Coming Week Sector Outlook</h3>
 <ul style="line-height:1.8">{insight_rows}</ul>
 
-<h3 style="color:#0f9d58;margin-top:20px">Today's Top Delivery % Stocks (Highest → Lowest)</h3>
+<h3 style="color:#0f9d58;margin-top:20px">Today's Top 20 Delivery % Stocks (Highest → Lowest)</h3>
 {delivery_html}
+
+<h3 style="color:#0f9d58;margin-top:20px">Sector-wise Top 20 — Fundamental &amp; Technical</h3>
+<p style="color:#666;font-size:12px;margin-bottom:10px">Ranked by combined delivery % + price position in day's range. Sub-sectors highlighted in blue.</p>
+{sector_html}
 
 <h3 style="color:#0f9d58;margin-top:20px">Indian Market Headlines</h3>
 <table style="width:100%;border-collapse:collapse;font-size:14px">
@@ -260,7 +318,7 @@ def agent_run(config_path: str, publish: bool) -> None:
     delivery_snapshot: TodayDeliverySnapshot | None = None
     if bool(config.get("delivery_enabled", True)):
         delivery_snapshot = fetch_today_delivery_top(
-            top_n=int(config.get("delivery_top_n", 40)),
+            top_n=int(config.get("delivery_top_n", 500)),
             min_traded_qty=int(config.get("delivery_min_traded_qty", 10000)),
         )
 
@@ -285,7 +343,8 @@ def agent_run(config_path: str, publish: bool) -> None:
 
     # Send email report
     report_email = config.get("report_email", "") or os.getenv("REPORT_EMAIL", "")
-    send_email_report(items, insights, now, report_email, delivery_snapshot=delivery_snapshot)
+    sector_stocks = build_sector_top(delivery_snapshot.stocks if delivery_snapshot else [], top_n=20)
+    send_email_report(items, insights, now, report_email, delivery_snapshot=delivery_snapshot, sector_stocks=sector_stocks)
 
     if publish:
         webhook_env_name = config.get("webhook_url_env", "NEWS_WEBHOOK_URL")
