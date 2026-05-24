@@ -301,6 +301,8 @@ DOMAINS_TO_TRASH = [
     "talentahead.com",
     "techno-facts.com",
     "workhills.com",
+    "ceipalmail.com",
+    "jobportal.shine.com",
 ]
 
 creds = Credentials(
