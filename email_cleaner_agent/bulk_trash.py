@@ -288,6 +288,19 @@ DOMAINS_TO_TRASH = [
     "tekspire.in",
     "thinkpeople.in",
     "xebia.com",
+    "bigshareonline.com",
+    "fcsltd.com",
+    "kksoftwareassociates.com",
+    "kprtechno.com",
+    "kukufm.com",
+    "lionbridge.com",
+    "orioninc.com",
+    "poshvine.com",
+    "skylinerta.co.in",
+    "sportzinteractive.net",
+    "talentahead.com",
+    "techno-facts.com",
+    "workhills.com",
 ]
 
 creds = Credentials(
