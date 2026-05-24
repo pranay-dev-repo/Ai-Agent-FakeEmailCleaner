@@ -155,6 +155,14 @@ def send_gmail_message_with_retries(service, raw: str) -> None:
             raise
 
 
+_CAT_CONFIG = [
+    ("Large Cap", 8, "#1a73e8"),
+    ("Mid Cap",   7, "#0f9d58"),
+    ("Small Cap", 5, "#e37400"),
+]
+_PENNY_MIN_PRICE = 15.0
+
+
 def build_delivery_html(snapshot: TodayDeliverySnapshot | None) -> str:
     if not snapshot or not snapshot.has_data:
         note = "NSE delivery data was unavailable for this run."
@@ -162,30 +170,50 @@ def build_delivery_html(snapshot: TodayDeliverySnapshot | None) -> str:
             note += f" Note: {snapshot.errors[-1]}"
         return f'<p style="color:#666">{note}</p>'
 
-    rows = "".join(
-        f"""<tr style="background:{'#f8f9fa' if idx % 2 == 0 else '#fff'}">
-              <td style="padding:6px 10px;border-bottom:1px solid #eee;color:#666">{idx}</td>
-              <td style="padding:6px 10px;border-bottom:1px solid #eee;font-weight:bold">{s.symbol}</td>
-              <td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right;color:#0f9d58;font-weight:bold">{s.delivery_percent:.1f}%</td>
-              <td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right">&#8377;{s.close_price:.2f}</td>
-              <td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right">{_format_qty(s.delivery_qty)}</td>
-              <td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right">{_format_qty(s.traded_qty)}</td>
-            </tr>"""
-        for idx, s in enumerate(snapshot.stocks[:20], start=1)
+    buckets: dict[str, list] = {"Large Cap": [], "Mid Cap": [], "Small Cap": []}
+    for s in snapshot.stocks:
+        if s.close_price < _PENNY_MIN_PRICE:
+            continue
+        buckets.get(s.cap_category, buckets["Small Cap"]).append(s)
+
+    header_row = (
+        '<tr style="background:#f1f3f4">'
+        '<th style="padding:6px 10px;text-align:left;color:#555;font-size:12px">#</th>'
+        '<th style="padding:6px 10px;text-align:left;color:#555;font-size:12px">Symbol</th>'
+        '<th style="padding:6px 10px;text-align:right;color:#555;font-size:12px">Delivery %</th>'
+        '<th style="padding:6px 10px;text-align:right;color:#555;font-size:12px">Close</th>'
+        '<th style="padding:6px 10px;text-align:right;color:#555;font-size:12px">Del Qty</th>'
+        '</tr>'
     )
-    return f"""
-<p style="color:#666;margin-bottom:8px">Trade date: <strong>{snapshot.trade_date:%d %b %Y}</strong> &bull; Sorted by delivery % (highest first)</p>
-<table style="width:100%;border-collapse:collapse;font-size:13px">
-  <tr style="background:#e8f0fe;color:#174ea6">
-    <th style="padding:7px 10px;text-align:left">#</th>
-    <th style="padding:7px 10px;text-align:left">Symbol</th>
-    <th style="padding:7px 10px;text-align:right">Delivery %</th>
-    <th style="padding:7px 10px;text-align:right">Close</th>
-    <th style="padding:7px 10px;text-align:right">Delivery Qty</th>
-    <th style="padding:7px 10px;text-align:right">Traded Qty</th>
-  </tr>
-  {rows}
-</table>"""
+
+    parts: list[str] = [
+        f'<p style="color:#666;margin-bottom:10px">Trade date: <strong>{snapshot.trade_date:%d %b %Y}</strong>'
+        f' &bull; Sorted by delivery % &bull; Penny stocks (&lt;&#8377;{_PENNY_MIN_PRICE:.0f}) excluded</p>'
+    ]
+
+    for cat_name, top_n, color in _CAT_CONFIG:
+        stocks = buckets[cat_name][:top_n]
+        if not stocks:
+            continue
+        rows = "".join(
+            f'<tr style="background:{"#f8f9fa" if i % 2 == 0 else "#fff"}">'
+            f'<td style="padding:6px 10px;border-bottom:1px solid #eee;color:#999;font-size:12px">{i}</td>'
+            f'<td style="padding:6px 10px;border-bottom:1px solid #eee;font-weight:bold">{s.symbol}</td>'
+            f'<td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right;color:#0f9d58;font-weight:bold">{s.delivery_percent:.1f}%</td>'
+            f'<td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right">&#8377;{s.close_price:.2f}</td>'
+            f'<td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:right;color:#666">{_format_qty(s.delivery_qty)}</td>'
+            f'</tr>'
+            for i, s in enumerate(stocks, start=1)
+        )
+        parts.append(
+            f'<div style="margin-bottom:14px">'
+            f'<div style="background:{color};color:#fff;padding:5px 12px;border-radius:4px 4px 0 0;font-weight:bold;font-size:13px">'
+            f'{cat_name} — Top {len(stocks)}</div>'
+            f'<table style="width:100%;border-collapse:collapse;font-size:13px">'
+            f'{header_row}{rows}</table></div>'
+        )
+
+    return "\n".join(parts)
 
 
 def build_sector_html(sector_stocks: list[TodayDeliveryStock]) -> str:
@@ -273,7 +301,7 @@ def send_email_report(
 <h3 style="color:#0f9d58;margin-top:20px">Coming Week Sector Outlook</h3>
 <ul style="line-height:1.8">{insight_rows}</ul>
 
-<h3 style="color:#0f9d58;margin-top:20px">Today's Top 20 Delivery % Stocks (Highest → Lowest)</h3>
+<h3 style="color:#0f9d58;margin-top:20px">Today's Top Delivery % — By Market Cap Category</h3>
 {delivery_html}
 
 <h3 style="color:#0f9d58;margin-top:20px">Sector-wise Top 20 — Fundamental &amp; Technical</h3>

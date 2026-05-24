@@ -57,6 +57,61 @@ SECTOR_SUB_MAP: dict[str, dict[str, list[str]]] = {
     },
 }
 
+LARGECAP_SYMBOLS: frozenset[str] = frozenset({
+    # Nifty 50
+    "ADANIENT", "ADANIPORTS", "APOLLOHOSP", "ASIANPAINT", "AXISBANK",
+    "BAJAJ-AUTO", "BAJFINANCE", "BAJAJFINSV", "BPCL", "BHARTIARTL",
+    "BRITANNIA", "CIPLA", "COALINDIA", "DIVISLAB", "DRREDDY",
+    "EICHERMOT", "GRASIM", "HCLTECH", "HDFCBANK", "HDFCLIFE",
+    "HEROMOTOCO", "HINDALCO", "HINDUNILVR", "ICICIBANK", "INDUSINDBK",
+    "INFY", "ITC", "JSWSTEEL", "KOTAKBANK", "LT",
+    "M&M", "MARUTI", "NESTLEIND", "NTPC", "ONGC",
+    "POWERGRID", "RELIANCE", "SBILIFE", "SBIN", "SHREECEM",
+    "SUNPHARMA", "TATACONSUM", "TATAMOTORS", "TATASTEEL", "TCS",
+    "TECHM", "TITAN", "TRENT", "ULTRACEMCO", "WIPRO",
+    # Nifty Next 50
+    "ABB", "ADANIGREEN", "ADANIPOWER", "AMBUJACEM", "ATGL",
+    "BANKBARODA", "BHEL", "BOSCHLTD", "CANBK", "CGPOWER",
+    "COLPAL", "DLF", "GAIL", "GODREJCP", "HAL",
+    "HAVELLS", "HDFCAMC", "ICICIGI", "ICICIPRULI", "IOC",
+    "IRFC", "LICI", "LODHA", "LTIM", "MARICO",
+    "NAUKRI", "NHPC", "PFC", "PIDILITIND", "POLYCAB",
+    "RECLTD", "SIEMENS", "TATAPOWER", "TIINDIA", "TORNTPOWER",
+    "TVSMOTOR", "VEDL", "ZOMATO", "ZYDUSLIFE", "DMART",
+    "JSWENERGY", "PERSISTENT", "GODREJPROP", "OBEROIRLTY",
+    "MUTHOOTFIN", "SHRIRAMFIN", "CHOLAFIN", "PNB", "PAYTM",
+})
+
+MIDCAP_SYMBOLS: frozenset[str] = frozenset({
+    "AARTIIND", "ABCAPITAL", "ACC", "ALKEM", "APOLLOTYRE",
+    "APLAPOLLO", "ASHOKLEY", "ASTRAL", "AUBANK", "AUROPHARMA",
+    "BANDHANBNK", "BEL", "BERGEPAINT", "BIOCON", "BRIGADE",
+    "CONCOR", "COROMANDEL", "CROMPTON", "CUMMINSIND", "DELHIVERY",
+    "ESCORTS", "EXIDEIND", "FEDERALBNK", "GLENMARK", "GRANULES",
+    "HFCL", "IDFCFIRSTB", "IEX", "INDHOTEL", "IRCTC",
+    "JKCEMENT", "JUBLFOOD", "KANSAINER", "KPITTECH", "LTTS",
+    "LUPIN", "M&MFIN", "MAZDOCK", "MAXHEALTH", "MFSL",
+    "MPHASIS", "NMDC", "OIL", "PAGEIND", "PETRONET",
+    "PHOENIXLTD", "PIIND", "PRESTIGE", "SAIL", "SUPREMEIND",
+    "SYNGENE", "TATACOMM", "TATACHEM", "TORNTPHARM", "UBL",
+    "UNIONBANK", "VOLTAS", "WHIRLPOOL", "COFORGE", "KPIL",
+    "MGL", "IGL", "MOIL", "HINDCOPPER", "NATIONALUM",
+    "HINDZINC", "BALKRISIND", "DEEPAKNTR", "SUMICHEM", "NAVINFLUOR",
+    "CHAMBLFERT", "EMAMILTD", "JYOTHYLAB", "KALYANKJIL", "KIMS",
+    "FORTIS", "ABBOTINDIA", "IPCA", "SUNTV", "DEEPAKFERT",
+    "JINDALSTEL", "SJVN", "COCHINSHIP", "BEML", "THERMAX",
+    "MOTHERSON", "MINDAIND", "AMARAJABAT", "SUNDRMFAST", "LINDEINDIA",
+})
+
+
+def _cap_category(symbol: str) -> str:
+    if symbol in LARGECAP_SYMBOLS:
+        return "Large Cap"
+    if symbol in MIDCAP_SYMBOLS:
+        return "Mid Cap"
+    return "Small Cap"
+
+
 _SYMBOL_TO_SECTOR: dict[str, str] = {}
 _SYMBOL_TO_SUBSECTOR: dict[str, str] = {}
 for _sector, _subsectors in SECTOR_SUB_MAP.items():
@@ -117,6 +172,7 @@ class TodayDeliveryStock:
     low_price: float = 0.0
     sector: str = ""
     sub_sector: str = ""
+    cap_category: str = ""
 
     @property
     def technical_score(self) -> float:
@@ -374,6 +430,7 @@ def fetch_today_delivery_top(
                 low_price=low_price,
                 sector=_SYMBOL_TO_SECTOR.get(symbol, ""),
                 sub_sector=_SYMBOL_TO_SUBSECTOR.get(symbol, ""),
+                cap_category=_cap_category(symbol),
             ))
 
         if stocks:
