@@ -306,6 +306,9 @@ DOMAINS_TO_TRASH = [
     "251718058.t-sender-sib.com",
     "mahait.org",
     "truelancer.com",
+    "jobboard.shine.com",
+    "jobopenings.shine.com",
+    "tldv.io",
 ]
 
 creds = Credentials(
