@@ -309,6 +309,11 @@ DOMAINS_TO_TRASH = [
     "jobboard.shine.com",
     "jobopenings.shine.com",
     "tldv.io",
+    "azurelib.com",
+    "beetalfinancial.com",
+    "bondskart.com",
+    "exec.simplilearn.com",
+    "screener.in",
 ]
 
 creds = Credentials(
