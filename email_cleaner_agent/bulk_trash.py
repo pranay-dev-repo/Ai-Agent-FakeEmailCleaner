@@ -314,6 +314,8 @@ DOMAINS_TO_TRASH = [
     "bondskart.com",
     "exec.simplilearn.com",
     "screener.in",
+    "mdindia.com",
+    "meetup.com",
 ]
 
 creds = Credentials(
