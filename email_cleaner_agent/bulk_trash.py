@@ -316,6 +316,7 @@ DOMAINS_TO_TRASH = [
     "screener.in",
     "mdindia.com",
     "meetup.com",
+    "openings.shine.com",
 ]
 
 creds = Credentials(
