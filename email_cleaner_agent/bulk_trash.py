@@ -317,6 +317,9 @@ DOMAINS_TO_TRASH = [
     "mdindia.com",
     "meetup.com",
     "openings.shine.com",
+    "c-sharpcorner.com",
+    "mofuailab.com",
+    "opportunities.shine.com",
 ]
 
 creds = Credentials(
