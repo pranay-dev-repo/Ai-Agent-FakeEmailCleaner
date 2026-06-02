@@ -320,6 +320,7 @@ DOMAINS_TO_TRASH = [
     "c-sharpcorner.com",
     "mofuailab.com",
     "opportunities.shine.com",
+    "naukrigulf.com",
 ]
 
 creds = Credentials(
