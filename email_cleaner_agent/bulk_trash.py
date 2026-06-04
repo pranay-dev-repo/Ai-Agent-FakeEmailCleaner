@@ -321,6 +321,11 @@ DOMAINS_TO_TRASH = [
     "mofuailab.com",
     "opportunities.shine.com",
     "naukrigulf.com",
+    "daily.digest.groww.in",
+    "digest.groww.in",
+    "jfs.in",
+    "tickertape.in",
+    "updates.easemytrip.com",
 ]
 
 creds = Credentials(
