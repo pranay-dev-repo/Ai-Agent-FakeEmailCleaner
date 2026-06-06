@@ -1,118 +1,88 @@
 {
-  "generated_at": "2026-06-05T12:24:27+00:00",
+  "generated_at": "2026-06-06T09:33:10+00:00",
   "domains": [
     {
       "domain": "google.com",
-      "inbox_count": 39,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "infosys.com",
       "inbox_count": 32,
       "ai_suggested": "review"
     },
     {
+      "domain": "infosys.com",
+      "inbox_count": 18,
+      "ai_suggested": "review"
+    },
+    {
       "domain": "linkedin.com",
-      "inbox_count": 17,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "linkintime.co.in",
-      "inbox_count": 17,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "miraeassetmf.co.in",
       "inbox_count": 14,
       "ai_suggested": "review"
     },
     {
-      "domain": "capgemini.com",
-      "inbox_count": 13,
-      "ai_suggested": "review"
-    },
-    {
       "domain": "in.mpms.mufg.com",
-      "inbox_count": 13,
+      "inbox_count": 11,
       "ai_suggested": "review"
     },
     {
-      "domain": "bankofindia.co.in",
-      "inbox_count": 10,
+      "domain": "linkintime.co.in",
+      "inbox_count": 11,
+      "ai_suggested": "review"
+    },
+    {
+      "domain": "miraeassetmf.co.in",
+      "inbox_count": 11,
       "ai_suggested": "review"
     },
     {
       "domain": "motilaloswal.com",
-      "inbox_count": 10,
+      "inbox_count": 9,
       "ai_suggested": "review"
     },
     {
-      "domain": "zoom.us",
-      "inbox_count": 8,
+      "domain": "capgemini.com",
+      "inbox_count": 7,
       "ai_suggested": "review"
     },
     {
-      "domain": "medium.com",
-      "inbox_count": 6,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "uidai.gov.in",
+      "domain": "bankofindia.co.in",
       "inbox_count": 6,
       "ai_suggested": "review"
     },
     {
       "domain": "easemytrip.com",
-      "inbox_count": 4,
+      "inbox_count": 5,
       "ai_suggested": "review"
     },
     {
-      "domain": "edelweissfin.com",
-      "inbox_count": 4,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "sc.com",
-      "inbox_count": 4,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "federalbank.co.in",
-      "inbox_count": 3,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "ltimindtree.com",
-      "inbox_count": 3,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "techmahindra.com",
-      "inbox_count": 3,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "accenture.com",
-      "inbox_count": 2,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "bseindia.com",
-      "inbox_count": 2,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "camsonline.com",
-      "inbox_count": 2,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "datacamp.com",
-      "inbox_count": 2,
+      "domain": "uidai.gov.in",
+      "inbox_count": 5,
       "ai_suggested": "review"
     },
     {
       "domain": "deeplearning.ai",
+      "inbox_count": 4,
+      "ai_suggested": "review"
+    },
+    {
+      "domain": "zoom.us",
+      "inbox_count": 4,
+      "ai_suggested": "review"
+    },
+    {
+      "domain": "bseindia.com",
+      "inbox_count": 3,
+      "ai_suggested": "review"
+    },
+    {
+      "domain": "iifl.com",
+      "inbox_count": 3,
+      "ai_suggested": "review"
+    },
+    {
+      "domain": "nsdl.com",
+      "inbox_count": 3,
+      "ai_suggested": "review"
+    },
+    {
+      "domain": "bajajfinance.com",
       "inbox_count": 2,
       "ai_suggested": "review"
     },
@@ -122,12 +92,17 @@
       "ai_suggested": "review"
     },
     {
-      "domain": "mail.grammarly.com",
+      "domain": "medium.com",
       "inbox_count": 2,
       "ai_suggested": "review"
     },
     {
-      "domain": "priority.facebookmail.com",
+      "domain": "mphasis.com",
+      "inbox_count": 2,
+      "ai_suggested": "review"
+    },
+    {
+      "domain": "razorpay.com",
       "inbox_count": 2,
       "ai_suggested": "review"
     },
@@ -142,47 +117,32 @@
       "ai_suggested": "review"
     },
     {
-      "domain": "youtube.com",
-      "inbox_count": 2,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "5paisa.com",
-      "inbox_count": 1,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "absa.co.za",
-      "inbox_count": 1,
-      "ai_suggested": "review"
-    },
-    {
       "domain": "adityabirlacapital.com",
       "inbox_count": 1,
       "ai_suggested": "review"
     },
     {
-      "domain": "ambitionbox.com",
-      "inbox_count": 1,
-      "ai_suggested": "blacklist"
-    },
-    {
-      "domain": "bajajfinance.com",
+      "domain": "camsonline.com",
       "inbox_count": 1,
       "ai_suggested": "review"
     },
     {
-      "domain": "franklintempleton.com",
+      "domain": "datacamp.com",
       "inbox_count": 1,
       "ai_suggested": "review"
     },
     {
-      "domain": "gov.in",
+      "domain": "dieboldnixdorf.com",
       "inbox_count": 1,
       "ai_suggested": "review"
     },
     {
-      "domain": "hcl.com",
+      "domain": "edelweissfin.com",
+      "inbox_count": 1,
+      "ai_suggested": "review"
+    },
+    {
+      "domain": "federal.bank.in",
       "inbox_count": 1,
       "ai_suggested": "review"
     },
@@ -192,12 +152,12 @@
       "ai_suggested": "review"
     },
     {
-      "domain": "hexaware.com",
+      "domain": "idbibank.com",
       "inbox_count": 1,
       "ai_suggested": "review"
     },
     {
-      "domain": "ingrammicro.com",
+      "domain": "indianoil.in",
       "inbox_count": 1,
       "ai_suggested": "review"
     },
@@ -207,12 +167,12 @@
       "ai_suggested": "review"
     },
     {
-      "domain": "jmfinancial.onmicrosoft.com",
+      "domain": "itr.mail.codecademy.com",
       "inbox_count": 1,
       "ai_suggested": "review"
     },
     {
-      "domain": "kgisl.com",
+      "domain": "jmfinancial.onmicrosoft.com",
       "inbox_count": 1,
       "ai_suggested": "review"
     },
@@ -227,7 +187,7 @@
       "ai_suggested": "review"
     },
     {
-      "domain": "mahaonline.gov.in",
+      "domain": "ltimindtree.com",
       "inbox_count": 1,
       "ai_suggested": "review"
     },
@@ -237,12 +197,7 @@
       "ai_suggested": "review"
     },
     {
-      "domain": "mail.indusind.bank.in",
-      "inbox_count": 1,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "mail.notion.so",
+      "domain": "mail.grammarly.com",
       "inbox_count": 1,
       "ai_suggested": "review"
     },
@@ -257,27 +212,17 @@
       "ai_suggested": "review"
     },
     {
-      "domain": "ncdex.com",
-      "inbox_count": 1,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "nha.gov.in",
-      "inbox_count": 1,
-      "ai_suggested": "review"
-    },
-    {
       "domain": "nidohomefin.com",
       "inbox_count": 1,
       "ai_suggested": "review"
     },
     {
-      "domain": "ril.com",
+      "domain": "sampark.gov.in",
       "inbox_count": 1,
       "ai_suggested": "review"
     },
     {
-      "domain": "sampark.gov.in",
+      "domain": "sc.com",
       "inbox_count": 1,
       "ai_suggested": "review"
     },
@@ -292,12 +237,7 @@
       "ai_suggested": "review"
     },
     {
-      "domain": "tm.openai.com",
-      "inbox_count": 1,
-      "ai_suggested": "review"
-    },
-    {
-      "domain": "vendor.nse.co.in",
+      "domain": "techmahindra.com",
       "inbox_count": 1,
       "ai_suggested": "review"
     },
