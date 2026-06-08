@@ -327,6 +327,8 @@ DOMAINS_TO_TRASH = [
     "tickertape.in",
     "updates.easemytrip.com",
     "ambitionbox.com",
+    "content.goibibo.com",
+    "promo.livemint.com",
 ]
 
 creds = Credentials(
