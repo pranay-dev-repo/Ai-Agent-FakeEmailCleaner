@@ -329,6 +329,8 @@ DOMAINS_TO_TRASH = [
     "ambitionbox.com",
     "content.goibibo.com",
     "promo.livemint.com",
+    "alerts.shine.com",
+    "greatlearning.in",
 ]
 
 creds = Credentials(
