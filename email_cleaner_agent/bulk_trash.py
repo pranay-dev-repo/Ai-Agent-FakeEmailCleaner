@@ -331,6 +331,7 @@ DOMAINS_TO_TRASH = [
     "promo.livemint.com",
     "alerts.shine.com",
     "greatlearning.in",
+    "bayt.com",
 ]
 
 creds = Credentials(
