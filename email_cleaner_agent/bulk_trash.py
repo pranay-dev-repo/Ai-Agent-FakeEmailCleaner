@@ -334,6 +334,9 @@ DOMAINS_TO_TRASH = [
     "bayt.com",
     "marketing.utimutualfund.co.in",
     "miraeassetmf.co.in",
+    "linkedin.com",
+    "ltimindtree.com",
+    "successfactors.com",
 ]
 
 creds = Credentials(
