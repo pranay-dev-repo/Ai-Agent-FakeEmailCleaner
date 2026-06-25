@@ -338,6 +338,7 @@ DOMAINS_TO_TRASH = [
     "ltimindtree.com",
     "successfactors.com",
     "academind.com",
+    "updates.coursiv.co",
 ]
 
 creds = Credentials(
