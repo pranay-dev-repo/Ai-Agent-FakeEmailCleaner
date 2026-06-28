@@ -340,6 +340,8 @@ DOMAINS_TO_TRASH = [
     "academind.com",
     "updates.coursiv.co",
     "notifications.coursiv.co",
+    "coursiv.io",
+    "nidohomefin.com",
 ]
 
 creds = Credentials(
