@@ -342,6 +342,7 @@ DOMAINS_TO_TRASH = [
     "notifications.coursiv.co",
     "coursiv.io",
     "nidohomefin.com",
+    "itr.mail.codecademy.com",
 ]
 
 creds = Credentials(
