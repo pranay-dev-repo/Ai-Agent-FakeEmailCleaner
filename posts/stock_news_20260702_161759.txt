@@ -1,0 +1,566 @@
+Indian Stock Market Report - 2026-07-02
+
+Coming Week Sector Outlook
+- The IT sector looks relatively constructive for the coming week, driven by a sharp rebound in IT stocks.
+- Falling crude oil prices are likely to support market sentiment, potentially benefiting sectors closely tied to oil prices.
+- The strong delivery percentages in stocks like MAHKTECH and ENEXT50 suggest investor interest in the technology sector.
+- Sectors that are closely tied to oil prices, such as energy or transportation, may appear weak in the near term due to declining crude oil prices.
+
+Top Delivery % Stocks — Today (Highest to Lowest)
+
+Trade date: 02 Jul 2026
+
+ 1. ENEXT50         100.0%   Close: ₹72.29   Delivery Qty: 27,884
+ 2. MAFANG          100.0%   Close: ₹188.36   Delivery Qty: 67,674
+ 3. MAHKTECH        100.0%   Close: ₹21.75   Delivery Qty: 236,052
+ 4. MONEXT50         99.9%   Close: ₹72.33   Delivery Qty: 14,974
+ 5. ALMONDZ          99.6%   Close: ₹13.17   Delivery Qty: 526,364
+ 6. ESG              99.5%   Close: ₹41.47   Delivery Qty: 20,164
+ 7. SHREYANIND       98.8%   Close: ₹138.87   Delivery Qty: 14,468
+ 8. HEADSUP          97.6%   Close: ₹6.98   Delivery Qty: 11,376
+ 9. GROWWEV          95.6%   Close: ₹31.56   Delivery Qty: 3,408,161
+10. ENIL             95.2%   Close: ₹105.82   Delivery Qty: 221,815
+11. MIDCAPADD        95.1%   Close: ₹22.96   Delivery Qty: 40,459
+12. ULTRAMAR         95.0%   Close: ₹371.25   Delivery Qty: 101,676
+13. BALAJEE          95.0%   Close: ₹29.27   Delivery Qty: 159,214
+14. MOTOUR           94.7%   Close: ₹80.35   Delivery Qty: 99,706
+15. RUCHINFRA        94.4%   Close: ₹6.12   Delivery Qty: 39,852
+16. RKSWAMY          94.2%   Close: ₹101.47   Delivery Qty: 294,458
+17. TREEHOUSE        94.0%   Close: ₹6.87   Delivery Qty: 33,175
+18. QUALITY30        93.9%   Close: ₹20.21   Delivery Qty: 27,279
+19. DELPHIFX         93.4%   Close: ₹8.11   Delivery Qty: 597,319
+20. GRADIENTE        93.4%   Close: ₹2.97   Delivery Qty: 649,010
+21. MID150           93.3%   Close: ₹23.24   Delivery Qty: 182,959
+22. VARDMNPOLY       93.3%   Close: ₹6.97   Delivery Qty: 1,721,898
+23. ELPROINTL        92.9%   Close: ₹172.63   Delivery Qty: 40,016
+24. AONETOTAL        92.8%   Close: ₹11.84   Delivery Qty: 185,052
+25. HDFCNIF100       92.7%   Close: ₹26.00   Delivery Qty: 202,969
+26. AKI              92.1%   Close: ₹4.90   Delivery Qty: 50,845
+27. AVONMORE         91.7%   Close: ₹10.24   Delivery Qty: 128,828
+28. MOMENTUM30       91.1%   Close: ₹30.82   Delivery Qty: 58,517
+29. GILLANDERS       90.9%   Close: ₹91.23   Delivery Qty: 9,943
+30. SUNDROP          90.7%   Close: ₹643.25   Delivery Qty: 18,486
+31. SHYAMCENT        90.4%   Close: ₹5.91   Delivery Qty: 296,807
+32. HDFCNIFBAN       90.3%   Close: ₹59.77   Delivery Qty: 770,930
+33. GROWWN200        90.2%   Close: ₹11.34   Delivery Qty: 41,943
+34. MON100           90.0%   Close: ₹335.90   Delivery Qty: 1,300,398
+35. EMULTIMQ         89.1%   Close: ₹41.79   Delivery Qty: 11,578
+36. OSWALSEEDS       88.7%   Close: ₹11.16   Delivery Qty: 73,392
+37. ASHIMASYN        88.7%   Close: ₹14.86   Delivery Qty: 27,340
+38. BALKRISHNA       88.6%   Close: ₹18.46   Delivery Qty: 14,182
+39. ORCHASP          88.4%   Close: ₹1.94   Delivery Qty: 160,306
+40. INTERNET         88.3%   Close: ₹13.05   Delivery Qty: 151,095
+41. RAJTV            88.0%   Close: ₹12.58   Delivery Qty: 23,091
+42. TRU              87.6%   Close: ₹5.26   Delivery Qty: 198,210
+43. MOBANK10         87.1%   Close: ₹17.39   Delivery Qty: 9,672
+44. EQUAL200         86.9%   Close: ₹13.67   Delivery Qty: 42,409
+45. GANGAFORGE       86.8%   Close: ₹2.36   Delivery Qty: 336,209
+46. TOP100CASE       86.8%   Close: ₹10.55   Delivery Qty: 1,059,160
+47. GROWWSC250       86.7%   Close: ₹10.32   Delivery Qty: 213,113
+48. DAMODARIND       86.7%   Close: ₹30.52   Delivery Qty: 10,993
+49. AQYLON           86.6%   Close: ₹42.86   Delivery Qty: 1,436,810
+50. RRIL             86.5%   Close: ₹17.92   Delivery Qty: 9,595
+51. NAGREEKEXP       86.4%   Close: ₹25.50   Delivery Qty: 8,992
+52. UMESLTD          86.2%   Close: ₹6.30   Delivery Qty: 121,094
+53. DNAMEDIA         86.2%   Close: ₹2.89   Delivery Qty: 16,622
+54. TARMAT           86.1%   Close: ₹49.18   Delivery Qty: 24,085
+55. LOWVOL1          86.1%   Close: ₹20.94   Delivery Qty: 2,623,990
+56. ICICIB22         86.1%   Close: ₹118.95   Delivery Qty: 410,838
+57. WSI              85.7%   Close: ₹66.17   Delivery Qty: 29,004
+58. LTGILTCASE       85.7%   Close: ₹30.44   Delivery Qty: 79,433
+59. EQUAL50ADD       85.6%   Close: ₹341.57   Delivery Qty: 8,632
+60. INDOUS           85.5%   Close: ₹88.30   Delivery Qty: 11,908
+61. ABSLNN50ET       85.4%   Close: ₹75.94   Delivery Qty: 13,496
+62. INFOMEDIA        85.4%   Close: ₹5.70   Delivery Qty: 8,927
+63. GROWWCAPM        85.2%   Close: ₹11.61   Delivery Qty: 2,119,906
+64. HDFCBSE500       85.2%   Close: ₹37.37   Delivery Qty: 339,574
+65. VISL             85.0%   Close: ₹42.65   Delivery Qty: 23,062,758
+66. BVCL             84.9%   Close: ₹41.31   Delivery Qty: 17,617
+67. PTL              84.9%   Close: ₹42.34   Delivery Qty: 51,515
+68. ABMKNO           84.7%   Close: ₹213.29   Delivery Qty: 10,486
+69. CONS             84.7%   Close: ₹12.05   Delivery Qty: 53,748
+70. INVPRECQ         84.7%   Close: ₹854.05   Delivery Qty: 18,841
+71. METROBRAND       84.5%   Close: ₹1023.80   Delivery Qty: 94,998
+72. SKFINDUS         84.4%   Close: ₹2817.20   Delivery Qty: 146,310
+73. JISLDVREQS       84.4%   Close: ₹23.88   Delivery Qty: 10,062
+74. WAAREEINDO       84.2%   Close: ₹387.95   Delivery Qty: 30,519
+75. WONDERLA         84.1%   Close: ₹494.60   Delivery Qty: 106,595
+76. SMALL250         84.0%   Close: ₹18.04   Delivery Qty: 855,069
+77. A2ZINFRA         84.0%   Close: ₹13.70   Delivery Qty: 175,644
+78. ROSSELLIND       84.0%   Close: ₹58.57   Delivery Qty: 25,594
+79. MASPTOP50        83.9%   Close: ₹78.02   Delivery Qty: 196,362
+80. MOHEALTH         83.8%   Close: ₹50.20   Delivery Qty: 59,563
+81. GICL             83.7%   Close: ₹19.88   Delivery Qty: 133,628
+82. HDFCPSUBK        83.5%   Close: ₹86.52   Delivery Qty: 398,815
+83. MITTAL           83.4%   Close: ₹0.97   Delivery Qty: 280,720
+84. SELECTIPO        83.3%   Close: ₹46.08   Delivery Qty: 13,588
+85. UMIYA-MRO        83.3%   Close: ₹90.00   Delivery Qty: 9,577
+86. MSCIINDIA        83.1%   Close: ₹29.76   Delivery Qty: 11,730
+87. MOMENTUM         82.9%   Close: ₹31.12   Delivery Qty: 46,446
+88. HDFCNEXT50       82.8%   Close: ₹73.76   Delivery Qty: 261,247
+89. AIROLAM          82.6%   Close: ₹92.40   Delivery Qty: 12,561
+90. ALICON           82.6%   Close: ₹649.20   Delivery Qty: 10,329
+91. SURYALAXMI       82.5%   Close: ₹58.43   Delivery Qty: 45,528
+92. CELEBRITY        82.5%   Close: ₹7.83   Delivery Qty: 47,004
+93. MOMENTUM50       82.5%   Close: ₹53.13   Delivery Qty: 617,500
+94. VINNY            82.4%   Close: ₹1.11   Delivery Qty: 405,863
+95. MOSERVICE        82.4%   Close: ₹31.16   Delivery Qty: 20,485
+96. CROWN            82.2%   Close: ₹112.44   Delivery Qty: 14,485
+97. SBGLP            82.2%   Close: ₹25.30   Delivery Qty: 9,414
+98. GROWWNET         82.0%   Close: ₹9.66   Delivery Qty: 281,355
+99. EMUDHRA          81.5%   Close: ₹436.95   Delivery Qty: 138,424
+100. TOTAL            81.5%   Close: ₹52.71   Delivery Qty: 32,784
+101. GAYAHWS          81.5%   Close: ₹1.98   Delivery Qty: 292,677
+102. LYPSAGEMS        81.4%   Close: ₹4.61   Delivery Qty: 36,511
+103. SHAHALLOYS       81.4%   Close: ₹71.09   Delivery Qty: 20,605
+104. GLOBE            81.3%   Close: ₹2.21   Delivery Qty: 133,183
+105. BAIDFIN          81.2%   Close: ₹10.01   Delivery Qty: 32,723
+106. DANGEE           81.2%   Close: ₹3.28   Delivery Qty: 56,174
+107. HAVISHA          81.2%   Close: ₹1.24   Delivery Qty: 24,404
+108. COUNCODOS        81.1%   Close: ₹4.89   Delivery Qty: 31,095
+109. NDLVENTURE       81.0%   Close: ₹133.04   Delivery Qty: 11,929
+110. LOVABLE          80.9%   Close: ₹77.10   Delivery Qty: 9,302
+111. GROWWLOVOL       80.8%   Close: ₹10.23   Delivery Qty: 37,842
+112. GENUSPAPER       80.7%   Close: ₹11.85   Delivery Qty: 48,043
+113. DEVX             80.6%   Close: ₹35.87   Delivery Qty: 55,916
+114. RADIOCITY        80.6%   Close: ₹6.14   Delivery Qty: 25,104
+115. NV20             80.6%   Close: ₹14.05   Delivery Qty: 163,111
+116. AKG              80.5%   Close: ₹11.23   Delivery Qty: 10,459
+117. VISHWARAJ        80.2%   Close: ₹5.35   Delivery Qty: 82,083
+118. ALANKIT          80.2%   Close: ₹8.09   Delivery Qty: 120,076
+119. PRAKASHSTL       80.2%   Close: ₹4.19   Delivery Qty: 62,051
+120. ACL              80.1%   Close: ₹52.03   Delivery Qty: 13,658
+121. AXISVALUE        80.0%   Close: ₹33.16   Delivery Qty: 32,717
+122. SPCENET          80.0%   Close: ₹3.75   Delivery Qty: 365,295
+123. UCAL             79.9%   Close: ₹125.02   Delivery Qty: 14,512
+124. RADAAN           79.8%   Close: ₹2.99   Delivery Qty: 12,155
+125. PRAENG           79.8%   Close: ₹19.71   Delivery Qty: 17,567
+126. HDFCPVTBAN       79.8%   Close: ₹28.76   Delivery Qty: 773,241
+127. ZENITHSTL        79.7%   Close: ₹5.67   Delivery Qty: 21,262
+128. LANDMARK         79.6%   Close: ₹436.45   Delivery Qty: 246,056
+129. BANKPSU          79.4%   Close: ₹86.06   Delivery Qty: 15,808
+130. MAKEINDIA        79.4%   Close: ₹163.26   Delivery Qty: 36,605
+131. RUBFILA          79.3%   Close: ₹72.38   Delivery Qty: 11,545
+132. ASHOKAMET        79.0%   Close: ₹15.15   Delivery Qty: 7,978
+133. MOMOMENTUM       78.9%   Close: ₹62.76   Delivery Qty: 38,111
+134. PVTBANKADD       78.7%   Close: ₹28.66   Delivery Qty: 257,983
+135. HMVL             78.7%   Close: ₹89.21   Delivery Qty: 100,775
+136. BAGFILMS         78.7%   Close: ₹4.70   Delivery Qty: 51,497
+137. ARIS             78.6%   Close: ₹108.50   Delivery Qty: 229,017
+138. ANMOL            78.5%   Close: ₹11.15   Delivery Qty: 12,811
+139. TEAMLEASE        78.4%   Close: ₹1467.80   Delivery Qty: 56,348
+140. BRNL             78.3%   Close: ₹18.32   Delivery Qty: 25,541
+141. KOTARISUG        78.1%   Close: ₹25.18   Delivery Qty: 22,115
+142. MAHAPEXLTD       77.9%   Close: ₹45.34   Delivery Qty: 18,803
+143. NATHBIOGEN       77.9%   Close: ₹164.87   Delivery Qty: 10,350
+144. CINEVISTA        77.8%   Close: ₹16.74   Delivery Qty: 8,453
+145. AEPL             77.7%   Close: ₹17.08   Delivery Qty: 8,155
+146. HLVLTD           77.7%   Close: ₹7.74   Delivery Qty: 111,198
+147. DRCSYSTEMS       77.7%   Close: ₹14.25   Delivery Qty: 34,280
+148. MADHAVIPL        77.6%   Close: ₹8.55   Delivery Qty: 88,002
+149. MANGALAM         77.4%   Close: ₹28.25   Delivery Qty: 24,387
+150. LAL              77.4%   Close: ₹8.97   Delivery Qty: 16,954
+151. RAMCOCEM         77.4%   Close: ₹943.15   Delivery Qty: 318,039
+152. KOTHARIPRO       77.3%   Close: ₹70.29   Delivery Qty: 10,617
+153. SHK              77.2%   Close: ₹129.99   Delivery Qty: 357,233
+154. SAURASHCEM       77.1%   Close: ₹55.93   Delivery Qty: 105,812
+155. ECAPINSURE       77.0%   Close: ₹24.55   Delivery Qty: 23,793
+156. TECH             77.0%   Close: ₹29.50   Delivery Qty: 80,780
+157. BTML             76.9%   Close: ₹6.05   Delivery Qty: 37,834
+158. CHEMPLASTS       76.8%   Close: ₹212.69   Delivery Qty: 1,545,202
+159. PSUBANKADD       76.8%   Close: ₹86.43   Delivery Qty: 89,149
+160. ELM250           76.8%   Close: ₹16.57   Delivery Qty: 18,992
+161. MKPL             76.8%   Close: ₹4.79   Delivery Qty: 132,810
+162. AMJLAND          76.6%   Close: ₹37.42   Delivery Qty: 12,361
+163. BIKAJI           76.5%   Close: ₹655.20   Delivery Qty: 109,827
+164. ITADD            76.3%   Close: ₹28.64   Delivery Qty: 393,274
+165. RAJMET           76.3%   Close: ₹3.72   Delivery Qty: 210,177
+166. ELLEN            76.1%   Close: ₹262.30   Delivery Qty: 255,036
+167. VCL              76.1%   Close: ₹1.27   Delivery Qty: 234,147
+168. IT               76.0%   Close: ₹29.92   Delivery Qty: 4,874,023
+169. GROWWCHEM        75.9%   Close: ₹29.71   Delivery Qty: 28,074
+170. AMBALALSA        75.7%   Close: ₹31.91   Delivery Qty: 24,304
+171. HARSHA           75.7%   Close: ₹415.65   Delivery Qty: 300,714
+172. INDTERRAIN       75.6%   Close: ₹32.87   Delivery Qty: 16,879
+173. SIKKO            75.6%   Close: ₹3.79   Delivery Qty: 106,476
+174. BANKADD          75.6%   Close: ₹59.43   Delivery Qty: 18,028
+175. MULTICAP         75.5%   Close: ₹16.64   Delivery Qty: 97,486
+176. ABSLPSE          75.3%   Close: ₹10.39   Delivery Qty: 34,874
+177. HCL-INSYS        75.3%   Close: ₹12.14   Delivery Qty: 87,830
+178. APCOTEXIND       75.2%   Close: ₹523.10   Delivery Qty: 71,262
+179. JHS              75.2%   Close: ₹7.59   Delivery Qty: 149,019
+180. PHOENIXLTD       75.2%   Close: ₹2012.50   Delivery Qty: 1,250,229
+181. KAMOPAINTS       75.2%   Close: ₹5.05   Delivery Qty: 138,776
+182. KMSUGAR          75.2%   Close: ₹26.09   Delivery Qty: 49,101
+183. GOYALALUM        75.0%   Close: ₹6.83   Delivery Qty: 37,101
+184. JITFINFRA        74.9%   Close: ₹304.90   Delivery Qty: 16,754
+185. DGCONTENT        74.9%   Close: ₹26.00   Delivery Qty: 16,801
+186. VINATIORGA       74.8%   Close: ₹1300.10   Delivery Qty: 104,897
+187. EXXARO           74.7%   Close: ₹6.66   Delivery Qty: 114,859
+188. PSUBANK          74.7%   Close: ₹854.79   Delivery Qty: 16,466
+189. SMALLCAP         74.7%   Close: ₹46.91   Delivery Qty: 1,260,240
+190. PGHH             74.7%   Close: ₹8886.00   Delivery Qty: 10,148
+191. ELGIRUBCO        74.6%   Close: ₹46.08   Delivery Qty: 19,701
+192. SHRADHA          74.6%   Close: ₹33.79   Delivery Qty: 8,016
+193. PARASPETRO       74.5%   Close: ₹2.05   Delivery Qty: 79,708
+194. KNAGRI           74.5%   Close: ₹218.80   Delivery Qty: 22,886
+195. LANDSMILL        74.3%   Close: ₹0.82   Delivery Qty: 2,208,139
+196. DIAMINESQ        74.3%   Close: ₹268.50   Delivery Qty: 33,704
+197. LANCORHOL        74.3%   Close: ₹24.95   Delivery Qty: 43,280
+198. SURANAT&P        74.3%   Close: ₹19.74   Delivery Qty: 78,984
+199. ADROITINFO       73.8%   Close: ₹9.01   Delivery Qty: 29,827
+200. SUVIDHAA         73.7%   Close: ₹2.69   Delivery Qty: 45,917
+201. ADVANIHOTR       73.7%   Close: ₹54.27   Delivery Qty: 20,318
+202. MOSMALL250       73.7%   Close: ₹17.99   Delivery Qty: 914,465
+203. LASA             73.7%   Close: ₹7.42   Delivery Qty: 23,046
+204. CANFINHOME       73.5%   Close: ₹882.50   Delivery Qty: 207,101
+205. RADIANTCMS       73.5%   Close: ₹38.85   Delivery Qty: 83,404
+206. OMINFRAL         73.4%   Close: ₹89.20   Delivery Qty: 52,923
+207. INCREDIBLE       73.3%   Close: ₹32.96   Delivery Qty: 7,629
+208. JAYAGROGN        73.1%   Close: ₹209.57   Delivery Qty: 7,953
+209. ORIENTPPR        73.1%   Close: ₹17.03   Delivery Qty: 45,019
+210. CMSINFO          73.0%   Close: ₹275.55   Delivery Qty: 706,413
+211. SBIMIDMOM        72.8%   Close: ₹62.99   Delivery Qty: 40,863
+212. GLAND            72.8%   Close: ₹2446.20   Delivery Qty: 334,556
+213. GEEKAYWIRE       72.7%   Close: ₹25.04   Delivery Qty: 102,338
+214. GROWWRAIL        72.7%   Close: ₹29.39   Delivery Qty: 122,711
+215. JSWDULUX         72.7%   Close: ₹3259.70   Delivery Qty: 34,731
+216. NDL              72.7%   Close: ₹2.43   Delivery Qty: 625,085
+217. MHLXMIRU         72.6%   Close: ₹143.88   Delivery Qty: 136,920
+218. MONEYBOXX        72.6%   Close: ₹64.33   Delivery Qty: 20,575
+219. ALIVUS           72.6%   Close: ₹1159.20   Delivery Qty: 225,619
+220. SICALLOG         72.6%   Close: ₹93.09   Delivery Qty: 124,876
+221. PYRAMID          72.4%   Close: ₹169.10   Delivery Qty: 18,153
+222. GRINDWELL        72.2%   Close: ₹2173.20   Delivery Qty: 60,842
+223. GTL              72.2%   Close: ₹7.80   Delivery Qty: 148,378
+224. KOKUYOCMLN       72.1%   Close: ₹89.67   Delivery Qty: 32,206
+225. AFSL             71.9%   Close: ₹201.15   Delivery Qty: 9,394
+226. ISFT             71.9%   Close: ₹77.50   Delivery Qty: 34,638
+227. MOMIDMTM         71.9%   Close: ₹63.98   Delivery Qty: 82,601
+228. DIGJAMLMTD       71.8%   Close: ₹44.68   Delivery Qty: 10,695
+229. MODTHREAD        71.8%   Close: ₹51.54   Delivery Qty: 12,901
+230. INTLCONV         71.8%   Close: ₹79.02   Delivery Qty: 23,430
+231. BFUTILITIE       71.7%   Close: ₹589.55   Delivery Qty: 60,732
+232. GROWWLIQID       71.7%   Close: ₹109.72   Delivery Qty: 92,572
+233. NILAINFRA        71.5%   Close: ₹7.63   Delivery Qty: 98,673
+234. MAGNUM           71.5%   Close: ₹19.03   Delivery Qty: 8,716
+235. NAVNETEDUL       71.4%   Close: ₹148.18   Delivery Qty: 154,414
+236. SMALLADD         71.4%   Close: ₹18.03   Delivery Qty: 147,056
+237. COMFINTE         71.3%   Close: ₹5.88   Delivery Qty: 78,291
+238. MOENERGY         71.1%   Close: ₹39.83   Delivery Qty: 109,248
+239. GILLETTE         71.1%   Close: ₹7613.50   Delivery Qty: 10,744
+240. BOSCH-HCIL       71.1%   Close: ₹1350.20   Delivery Qty: 11,888
+241. BANK10ADD        71.1%   Close: ₹17.31   Delivery Qty: 25,122
+242. MANGLMCEM        71.1%   Close: ₹901.10   Delivery Qty: 18,230
+243. KOTHARIPET       71.0%   Close: ₹123.91   Delivery Qty: 23,524
+244. AJOONI           71.0%   Close: ₹3.80   Delivery Qty: 350,418
+245. INFRA            71.0%   Close: ₹12.44   Delivery Qty: 35,135
+246. MOM100           71.0%   Close: ₹67.29   Delivery Qty: 161,228
+247. KAPSTON          70.9%   Close: ₹379.35   Delivery Qty: 12,369
+248. DCMSRIND         70.8%   Close: ₹37.22   Delivery Qty: 156,654
+249. USK              70.8%   Close: ₹23.01   Delivery Qty: 11,215
+250. LENSKART         70.8%   Close: ₹530.40   Delivery Qty: 2,867,665
+251. HPAL             70.8%   Close: ₹35.65   Delivery Qty: 16,886
+252. ASIANPAINT       70.8%   Close: ₹2744.50   Delivery Qty: 1,153,052
+253. TIJARIA          70.8%   Close: ₹4.33   Delivery Qty: 9,527
+254. MARATHON         70.7%   Close: ₹418.30   Delivery Qty: 37,958
+255. TEXMOPIPES       70.7%   Close: ₹44.91   Delivery Qty: 37,354
+256. VALUE            70.6%   Close: ₹16.22   Delivery Qty: 70,028
+257. EMKAY            70.6%   Close: ₹263.90   Delivery Qty: 77,802
+258. GVPTECH          70.5%   Close: ₹7.15   Delivery Qty: 54,987
+259. MWL              70.5%   Close: ₹377.05   Delivery Qty: 20,737
+260. ORIENTALTL       70.3%   Close: ₹5.68   Delivery Qty: 48,723
+261. MFSL             70.0%   Close: ₹1618.30   Delivery Qty: 469,544
+262. UNITECH          69.9%   Close: ₹4.70   Delivery Qty: 2,053,372
+263. MUKANDLTD        69.8%   Close: ₹132.96   Delivery Qty: 86,382
+264. HEALTHCARE       69.7%   Close: ₹21.00   Delivery Qty: 22,550
+265. TBOTEK           69.7%   Close: ₹1526.30   Delivery Qty: 1,275,684
+266. TOP20            69.7%   Close: ₹8.74   Delivery Qty: 16,350
+267. RHETAN           69.5%   Close: ₹26.60   Delivery Qty: 1,226,731
+268. HDFCSML250       69.3%   Close: ₹180.68   Delivery Qty: 1,614,069
+269. MAZDA            69.3%   Close: ₹230.65   Delivery Qty: 7,587
+270. ALOKINDS         69.2%   Close: ₹13.27   Delivery Qty: 3,829,694
+271. PDMJEPAPER       69.2%   Close: ₹83.77   Delivery Qty: 22,985
+272. KOLTEPATIL       69.2%   Close: ₹369.80   Delivery Qty: 23,292
+273. SAKHTISUG        69.1%   Close: ₹17.10   Delivery Qty: 36,373
+274. VARDHACRLC       69.0%   Close: ₹45.16   Delivery Qty: 27,381
+275. METAL            68.9%   Close: ₹12.62   Delivery Qty: 2,247,472
+276. DEFENCE          68.9%   Close: ₹80.19   Delivery Qty: 164,851
+277. SRTL             68.8%   Close: ₹39.65   Delivery Qty: 26,714
+278. STEELCITY        68.7%   Close: ₹79.02   Delivery Qty: 8,776
+279. SHRIRAMFIN       68.6%   Close: ₹1066.70   Delivery Qty: 3,936,071
+280. GROWWPOWER       68.6%   Close: ₹12.12   Delivery Qty: 1,557,005
+281. CONCOR           68.5%   Close: ₹477.45   Delivery Qty: 1,412,436
+282. SPLPETRO         68.5%   Close: ₹711.05   Delivery Qty: 37,348
+283. SPLIL            68.5%   Close: ₹32.02   Delivery Qty: 7,575
+284. MIRZAINT         68.4%   Close: ₹34.31   Delivery Qty: 65,504
+285. GKSL             68.3%   Close: ₹130.94   Delivery Qty: 63,543
+286. RANASUG          68.3%   Close: ₹12.47   Delivery Qty: 113,923
+287. BOHRAIND         68.2%   Close: ₹13.28   Delivery Qty: 40,605
+288. BLBLIMITED       68.2%   Close: ₹16.96   Delivery Qty: 111,373
+289. GANESHBE         68.1%   Close: ₹103.69   Delivery Qty: 148,300
+290. HTMEDIA          68.1%   Close: ₹22.02   Delivery Qty: 37,009
+291. KCPSUGIND        68.0%   Close: ₹22.00   Delivery Qty: 55,751
+292. KANANIIND        68.0%   Close: ₹1.53   Delivery Qty: 48,886
+293. CIFL             67.9%   Close: ₹22.96   Delivery Qty: 97,023
+294. SSDL             67.9%   Close: ₹55.85   Delivery Qty: 15,214
+295. UNIECOM          67.8%   Close: ₹86.49   Delivery Qty: 341,464
+296. PROSTARM         67.7%   Close: ₹137.43   Delivery Qty: 78,797
+297. CONSUMER         67.7%   Close: ₹11.67   Delivery Qty: 77,147
+298. CHEMICAL         67.7%   Close: ₹29.91   Delivery Qty: 167,534
+299. TI               67.5%   Close: ₹454.40   Delivery Qty: 253,484
+300. PAKKA            67.5%   Close: ₹80.38   Delivery Qty: 20,286
+301. GRASIM           67.5%   Close: ₹3169.20   Delivery Qty: 303,411
+302. AIRAN            67.4%   Close: ₹16.15   Delivery Qty: 24,931
+303. MANAKCOAT        67.4%   Close: ₹115.22   Delivery Qty: 141,828
+304. UFBL             67.4%   Close: ₹672.85   Delivery Qty: 87,136
+305. MEDICAMEQ        67.4%   Close: ₹256.75   Delivery Qty: 13,900
+306. AHLADA           67.4%   Close: ₹38.71   Delivery Qty: 8,425
+307. AGROPHOS         67.4%   Close: ₹30.76   Delivery Qty: 19,944
+308. ANTGRAPHIC       67.3%   Close: ₹0.80   Delivery Qty: 80,049
+309. CENTENKA         67.3%   Close: ₹533.25   Delivery Qty: 10,848
+310. ORICONENT        67.2%   Close: ₹56.77   Delivery Qty: 104,231
+311. RECLTD           67.2%   Close: ₹369.60   Delivery Qty: 3,163,595
+312. BALPHARMA        67.2%   Close: ₹78.46   Delivery Qty: 25,565
+313. LINCOLN          67.1%   Close: ₹624.25   Delivery Qty: 15,086
+314. EPIGRAL          66.9%   Close: ₹1038.90   Delivery Qty: 46,981
+315. SCANSTL          66.9%   Close: ₹41.24   Delivery Qty: 101,682
+316. GROWWRLTY        66.8%   Close: ₹9.73   Delivery Qty: 308,256
+317. RAMKY            66.7%   Close: ₹407.35   Delivery Qty: 50,159
+318. AAKASH           66.7%   Close: ₹9.03   Delivery Qty: 58,973
+319. PTC              66.7%   Close: ₹177.28   Delivery Qty: 335,074
+320. RPSGVENT         66.6%   Close: ₹833.80   Delivery Qty: 13,715
+321. CANHLIFE         66.6%   Close: ₹141.82   Delivery Qty: 1,114,806
+322. SONAMLTD         66.6%   Close: ₹54.45   Delivery Qty: 43,631
+323. CHALET           66.6%   Close: ₹837.10   Delivery Qty: 137,030
+324. HDFCMOMENT       66.5%   Close: ₹31.11   Delivery Qty: 40,157
+325. SYMPHONY         66.5%   Close: ₹691.45   Delivery Qty: 54,576
+326. EICHERMOT        66.5%   Close: ₹7250.00   Delivery Qty: 551,276
+327. ANDHRAPAP        66.5%   Close: ₹63.17   Delivery Qty: 22,968
+328. NESCO            66.5%   Close: ₹1116.60   Delivery Qty: 68,927
+329. ESSARSHPNG       66.5%   Close: ₹23.65   Delivery Qty: 57,849
+330. MATRIMONY        66.4%   Close: ₹415.00   Delivery Qty: 8,080
+331. MIDCAP           66.4%   Close: ₹18.13   Delivery Qty: 255,664
+332. BLKASHYAP        66.4%   Close: ₹54.84   Delivery Qty: 131,066
+333. ICRA             66.4%   Close: ₹5321.00   Delivery Qty: 20,606
+334. MSPL             66.3%   Close: ₹42.59   Delivery Qty: 1,213,749
+335. SGIL             66.3%   Close: ₹560.35   Delivery Qty: 8,643
+336. ELECTCAST        66.3%   Close: ₹78.21   Delivery Qty: 841,107
+337. MUTHOOTCAP       66.2%   Close: ₹213.62   Delivery Qty: 35,253
+338. RAINBOW          66.2%   Close: ₹1420.80   Delivery Qty: 73,619
+339. PRIMESECU        66.1%   Close: ₹287.00   Delivery Qty: 16,663
+340. ATL              66.0%   Close: ₹23.78   Delivery Qty: 52,382
+341. BLIL             66.0%   Close: ₹70.96   Delivery Qty: 22,740
+342. UNIENTER         66.0%   Close: ₹109.42   Delivery Qty: 14,949
+343. RUCHIRA          66.0%   Close: ₹110.40   Delivery Qty: 16,616
+344. MAXESTATES       66.0%   Close: ₹421.00   Delivery Qty: 30,524
+345. SPECIALITY       65.9%   Close: ₹130.43   Delivery Qty: 31,388
+346. UGROCAP          65.9%   Close: ₹97.54   Delivery Qty: 94,357
+347. HEALTHY          65.9%   Close: ₹16.58   Delivery Qty: 140,751
+348. KCP              65.8%   Close: ₹170.03   Delivery Qty: 38,328
+349. IDFCFIRSTB       65.8%   Close: ₹79.52   Delivery Qty: 16,176,624
+350. TFCILTD          65.8%   Close: ₹77.93   Delivery Qty: 1,650,409
+351. LAMBODHARA       65.7%   Close: ₹116.09   Delivery Qty: 7,517
+352. SURANASOL        65.7%   Close: ₹27.28   Delivery Qty: 52,393
+353. ADVENTHTL        65.7%   Close: ₹142.18   Delivery Qty: 57,463
+354. MCL              65.7%   Close: ₹54.74   Delivery Qty: 44,769
+355. INDUSTOWER       65.6%   Close: ₹383.75   Delivery Qty: 2,379,622
+356. INDIGOPNTS       65.5%   Close: ₹1077.10   Delivery Qty: 286,607
+357. GROWWHOSPI       65.5%   Close: ₹53.90   Delivery Qty: 557,431
+358. BMWVENTLTD       65.4%   Close: ₹57.54   Delivery Qty: 26,962
+359. HEIDELBERG       65.4%   Close: ₹154.17   Delivery Qty: 30,729
+360. ENERGY           65.3%   Close: ₹39.31   Delivery Qty: 2,960,154
+361. CARRARO          65.2%   Close: ₹550.75   Delivery Qty: 227,444
+362. CPEDU            65.2%   Close: ₹200.49   Delivery Qty: 9,478
+363. MOREALTY         65.1%   Close: ₹86.84   Delivery Qty: 825,267
+364. ALKEM            65.1%   Close: ₹5500.50   Delivery Qty: 106,393
+365. VOEPL            65.1%   Close: ₹438.35   Delivery Qty: 63,365
+366. SARDAEN          65.0%   Close: ₹500.45   Delivery Qty: 320,039
+367. BCPL             65.0%   Close: ₹72.45   Delivery Qty: 7,624
+368. LAURUSLABS       65.0%   Close: ₹1528.00   Delivery Qty: 1,793,952
+369. CUB              64.9%   Close: ₹217.80   Delivery Qty: 2,818,202
+370. COASTCORP        64.9%   Close: ₹52.19   Delivery Qty: 89,297
+371. MOKSH            64.9%   Close: ₹11.74   Delivery Qty: 51,783
+372. ELGIEQUIP        64.9%   Close: ₹594.00   Delivery Qty: 216,718
+373. DIVISLAB         64.9%   Close: ₹6682.50   Delivery Qty: 223,372
+374. POWERGRID        64.8%   Close: ₹288.20   Delivery Qty: 4,181,306
+375. ARCHIES          64.8%   Close: ₹13.83   Delivery Qty: 28,947
+376. RAJSREESUG       64.7%   Close: ₹31.13   Delivery Qty: 12,689
+377. NILKAMAL         64.7%   Close: ₹1293.80   Delivery Qty: 12,969
+378. VSTIND           64.7%   Close: ₹262.00   Delivery Qty: 177,777
+379. VAKRANGEE        64.6%   Close: ₹6.25   Delivery Qty: 1,175,059
+380. ICICIGI          64.6%   Close: ₹1761.00   Delivery Qty: 234,987
+381. MOCAPITAL        64.6%   Close: ₹55.50   Delivery Qty: 569,149
+382. TNPL             64.6%   Close: ₹145.98   Delivery Qty: 18,066
+383. FIRSTCRY         64.5%   Close: ₹226.29   Delivery Qty: 2,728,185
+384. LUPIN            64.5%   Close: ₹2399.60   Delivery Qty: 377,030
+385. JUBLCPL          64.4%   Close: ₹2073.40   Delivery Qty: 7,243
+386. MONARCH          64.4%   Close: ₹347.80   Delivery Qty: 45,458
+387. VIRINCHI         64.4%   Close: ₹16.58   Delivery Qty: 26,031
+388. INDHOTEL         64.3%   Close: ₹720.70   Delivery Qty: 1,970,713
+389. SADBHAV          64.2%   Close: ₹9.09   Delivery Qty: 230,363
+390. GMRAIRPORT       64.2%   Close: ₹111.79   Delivery Qty: 14,157,693
+391. TRACXN           64.2%   Close: ₹30.26   Delivery Qty: 79,725
+392. WCIL             64.1%   Close: ₹98.69   Delivery Qty: 22,840
+393. BFINVEST         64.1%   Close: ₹460.75   Delivery Qty: 23,628
+394. ALPHA            64.1%   Close: ₹51.56   Delivery Qty: 318,760
+395. FEDERALBNK       64.0%   Close: ₹331.00   Delivery Qty: 4,760,553
+396. NYKAA            64.0%   Close: ₹314.00   Delivery Qty: 3,450,103
+397. PATELRMART       64.0%   Close: ₹214.94   Delivery Qty: 29,397
+398. ARVSMART         64.0%   Close: ₹597.50   Delivery Qty: 11,351
+399. JKLAKSHMI        64.0%   Close: ₹571.50   Delivery Qty: 214,789
+400. ERIS             63.9%   Close: ₹1448.70   Delivery Qty: 21,065
+401. HAVELLS          63.9%   Close: ₹1186.70   Delivery Qty: 391,658
+402. JKCEMENT         63.9%   Close: ₹5531.50   Delivery Qty: 34,136
+403. VBL              63.9%   Close: ₹510.65   Delivery Qty: 3,377,532
+404. ATLANTAELE       63.9%   Close: ₹1765.40   Delivery Qty: 43,770
+405. VGUARD           63.9%   Close: ₹311.35   Delivery Qty: 64,845
+406. ARIES            63.8%   Close: ₹341.10   Delivery Qty: 15,630
+407. SWARAJENG        63.6%   Close: ₹4103.50   Delivery Qty: 35,637
+408. SIMPLEXINF       63.6%   Close: ₹265.80   Delivery Qty: 29,779
+409. IVC              63.6%   Close: ₹8.14   Delivery Qty: 200,149
+410. ABSLMSCIN        63.6%   Close: ₹29.55   Delivery Qty: 7,593
+411. AARTIDRUGS       63.5%   Close: ₹384.45   Delivery Qty: 96,910
+412. ROLEXRINGS       63.5%   Close: ₹149.77   Delivery Qty: 1,430,119
+413. GLOSTERLTD       63.5%   Close: ₹749.45   Delivery Qty: 11,593
+414. MAHEPC           63.4%   Close: ₹119.97   Delivery Qty: 13,691
+415. DHARMAJ          63.4%   Close: ₹265.10   Delivery Qty: 19,672
+416. DECCANCE         63.4%   Close: ₹567.60   Delivery Qty: 17,023
+417. SANOFI           63.4%   Close: ₹3474.20   Delivery Qty: 12,744
+418. GUJAPOLLO        63.3%   Close: ₹363.85   Delivery Qty: 7,284
+419. SUNPHARMA        63.3%   Close: ₹1871.00   Delivery Qty: 940,077
+420. OMPOWER          63.3%   Close: ₹181.59   Delivery Qty: 35,179
+421. COMPUSOFT        63.2%   Close: ₹13.24   Delivery Qty: 10,563
+422. LOTUSEYE         63.1%   Close: ₹125.59   Delivery Qty: 10,430
+423. TPLPLASTEH       63.1%   Close: ₹72.84   Delivery Qty: 19,040
+424. CASTROLIND       63.1%   Close: ₹184.45   Delivery Qty: 596,848
+425. CCCL             63.1%   Close: ₹16.65   Delivery Qty: 147,333
+426. SCHAND           63.1%   Close: ₹152.06   Delivery Qty: 45,415
+427. JAYSREETEA       63.0%   Close: ₹85.61   Delivery Qty: 13,015
+428. UJJIVANSFB       62.9%   Close: ₹61.40   Delivery Qty: 13,620,571
+429. CENTEXT          62.9%   Close: ₹19.35   Delivery Qty: 29,160
+430. LTTS             62.9%   Close: ₹3166.90   Delivery Qty: 151,241
+431. RUSHIL           62.9%   Close: ₹16.55   Delivery Qty: 318,520
+432. PIGL             62.7%   Close: ₹113.16   Delivery Qty: 96,276
+433. AWHCL            62.6%   Close: ₹478.15   Delivery Qty: 39,032
+434. ORIENTBELL       62.6%   Close: ₹318.70   Delivery Qty: 8,103
+435. OBEROIRLTY       62.6%   Close: ₹1864.70   Delivery Qty: 753,551
+436. INDOBORAX        62.5%   Close: ₹391.60   Delivery Qty: 47,763
+437. TEXINFRA         62.5%   Close: ₹111.68   Delivery Qty: 86,988
+438. GODAVARIB        62.5%   Close: ₹278.60   Delivery Qty: 81,785
+439. BIOCON           62.5%   Close: ₹418.60   Delivery Qty: 1,629,729
+440. ANTHEM           62.4%   Close: ₹772.35   Delivery Qty: 602,409
+441. ROHLTD           62.4%   Close: ₹327.85   Delivery Qty: 11,051
+442. GLOBAL           62.4%   Close: ₹101.88   Delivery Qty: 26,713
+443. IIFLCAPS         62.4%   Close: ₹338.60   Delivery Qty: 158,106
+444. KSL              62.4%   Close: ₹882.00   Delivery Qty: 24,092
+445. DODLA            62.4%   Close: ₹1130.80   Delivery Qty: 8,344
+446. ENERGYDEV        62.3%   Close: ₹17.21   Delivery Qty: 48,348
+447. INTENTECH        62.3%   Close: ₹100.70   Delivery Qty: 27,689
+448. RMDRIP           62.3%   Close: ₹20.17   Delivery Qty: 366,922
+449. GIPCL            62.2%   Close: ₹157.66   Delivery Qty: 157,642
+450. MENNPIS          62.2%   Close: ₹66.16   Delivery Qty: 25,137
+451. GROWWMOM50       62.1%   Close: ₹10.76   Delivery Qty: 56,792
+452. ADVENZYMES       62.1%   Close: ₹313.45   Delivery Qty: 982,794
+453. SUNDRMFAST       62.0%   Close: ₹946.55   Delivery Qty: 59,618
+454. HATSUN           62.0%   Close: ₹915.10   Delivery Qty: 25,251
+455. INDIAMART        62.0%   Close: ₹1896.90   Delivery Qty: 27,497
+456. IRIS             62.0%   Close: ₹267.15   Delivery Qty: 10,629
+457. KPIL             61.9%   Close: ₹1370.20   Delivery Qty: 148,708
+458. GANESHHOU        61.8%   Close: ₹780.50   Delivery Qty: 25,843
+459. ICICIBANK        61.8%   Close: ₹1400.00   Delivery Qty: 9,746,817
+460. SANATHAN         61.8%   Close: ₹441.40   Delivery Qty: 6,197
+461. UYFINCORP        61.8%   Close: ₹15.08   Delivery Qty: 148,065
+462. CRAMC            61.7%   Close: ₹255.76   Delivery Qty: 243,497
+463. IRISDOREME       61.7%   Close: ₹42.85   Delivery Qty: 241,147
+464. WEBELSOLAR       61.6%   Close: ₹105.92   Delivery Qty: 1,544,319
+465. SML100CASE       61.6%   Close: ₹10.86   Delivery Qty: 568,594
+466. SURAKSHA         61.6%   Close: ₹269.25   Delivery Qty: 25,671
+467. SUDEEPPHRM       61.6%   Close: ₹857.20   Delivery Qty: 54,763
+468. VLSFINANCE       61.5%   Close: ₹256.05   Delivery Qty: 7,155
+469. SOLARWORLD       61.5%   Close: ₹185.38   Delivery Qty: 61,246
+470. MAMATA           61.4%   Close: ₹415.40   Delivery Qty: 19,202
+471. DPABHUSHAN       61.4%   Close: ₹954.80   Delivery Qty: 9,581
+472. KLBRENG-B        61.4%   Close: ₹492.30   Delivery Qty: 22,216
+473. KAVDEFENCE       61.4%   Close: ₹64.20   Delivery Qty: 73,496
+474. SAMBHAAV         61.3%   Close: ₹6.44   Delivery Qty: 12,454
+475. AHLUCONT         61.3%   Close: ₹856.15   Delivery Qty: 12,632
+476. PETRONET         61.3%   Close: ₹275.20   Delivery Qty: 1,246,279
+477. EVINDIA          61.3%   Close: ₹31.55   Delivery Qty: 153,960
+478. FAZE3Q           61.3%   Close: ₹617.20   Delivery Qty: 16,649
+479. FILATEX          61.2%   Close: ₹52.42   Delivery Qty: 404,243
+480. SUYOG            61.2%   Close: ₹872.75   Delivery Qty: 86,874
+481. JISLJALEQS       61.2%   Close: ₹35.11   Delivery Qty: 756,047
+482. KRISHANA         61.1%   Close: ₹713.50   Delivery Qty: 321,401
+483. MNC              61.1%   Close: ₹33.89   Delivery Qty: 71,248
+484. SBILIFE          61.1%   Close: ₹1784.40   Delivery Qty: 395,181
+485. JAGRAN           61.1%   Close: ₹64.56   Delivery Qty: 163,482
+486. AVTNPL           61.1%   Close: ₹70.25   Delivery Qty: 49,828
+487. CHOLAFIN         61.0%   Close: ₹1788.50   Delivery Qty: 756,164
+488. DENORA           61.0%   Close: ₹864.90   Delivery Qty: 6,210
+489. MAFATIND         61.0%   Close: ₹139.56   Delivery Qty: 35,634
+490. WINDLAS          61.0%   Close: ₹861.25   Delivery Qty: 38,733
+491. MANKIND          61.0%   Close: ₹2486.90   Delivery Qty: 109,952
+492. MVGJL            61.0%   Close: ₹149.83   Delivery Qty: 61,699
+493. BEARDSELL        60.9%   Close: ₹29.26   Delivery Qty: 12,830
+494. EMAMILTD         60.9%   Close: ₹416.85   Delivery Qty: 405,855
+495. SAMPANN          60.9%   Close: ₹29.93   Delivery Qty: 117,995
+496. SNOWMAN          60.9%   Close: ₹38.04   Delivery Qty: 101,206
+497. PIDILITIND       60.8%   Close: ₹1605.40   Delivery Qty: 432,364
+498. AEGISVOPAK       60.8%   Close: ₹234.73   Delivery Qty: 584,686
+499. BAJAJINDEF       60.8%   Close: ₹251.50   Delivery Qty: 13,717
+500. NEXT50BETA       60.8%   Close: ₹78.10   Delivery Qty: 76,408
+
+Indian Market Headlines
+
+1. Market Wrap: Nifty and Sensex Close Higher on Sectoral Rotation - scanx.trade
+   Source: scanx.trade
+   Summary: Market Wrap: Nifty and Sensex Close Higher on Sectoral Rotation scanx.trade
+   Link: https://news.google.com/rss/articles/CBMiuAFBVV95cUxOT2wyQmd2VHplbHdLdWx0QTN0ZHotUFpFNmVDV1FDOUZXdmlLVXFSWm11XzM0SHhUV2huZ2hkOUFtcW1sZDlDTVhQeWYzY3FiRi00WjNnR1Njc1c4amdCUHRValNwd0dnTFc1elp3cHVrQ2hCVElBT01FNVE2TTdsRXNjYmlrNnhwZVlGZWpMNWlUVlBSYnRMVlg1amZjb2djczlQUlk2QTdKWDFGbFlJUjBmNUh2ODFl?oc=5
+
+2. Closing Bell: Sensex Nifty Surge as IT Stocks Roar Back With the Rally and Crude Slides to $70 - India Infoline
+   Source: India Infoline
+   Summary: Closing Bell: Sensex Nifty Surge as IT Stocks Roar Back With the Rally and Crude Slides to $70 India Infoline
+   Link: https://news.google.com/rss/articles/CBMi0AFBVV95cUxOejhLdnU1YlVIcVlKMHVFR2NUVldfekd2VHFDODBGcHJpcWxRek5hWEw3UC04VHhVTnE4RlVPRGpndG1xZFNnX2J5WGxrRDhxM2FyeGI3c19rTWgtVmlSMTNCMmRBYXhnZG1TWUxXLVpMaWhSb2NObkp6YVpleWM0OEE5OG5ialhlS0MzdnJsRUpGbG9DR0hPX2hDUC15Y1VlYU5mbmt3dDhyVkE3WWd4OElWTW5UdzhMdnpaRndCSWpRakZILTFVeHB0Z2lSS3RC?oc=5
+
+3. IT rebound, falling crude lift markets; Sensex up 580 pts, Nifty gains 170 - Business Standard
+   Source: Business Standard
+   Summary: IT rebound, falling crude lift markets; Sensex up 580 pts, Nifty gains 170 Business Standard
+   Link: https://news.google.com/rss/articles/CBMi1AFBVV95cUxPVlU3bWw3NzMteG1jdDhFRzRjYlRTY2ZHRWdLR0RXYnZlVVZoZWRMdkV6aXphSk1YdlJhckEyS05TR0oxMUNtaHV5ZW8wdTBqN21LNVlnbG9raHE2eGxETmZtZzJINEs1bHNnOURfeU9wbGVRZklwNnJvdmhWN0Y5SGh2R3BKZVJHY0ZOR25UT0syUDFST1UwWXVQUFRFVExRWEN5VDhWclFyQW1JN2hWazlfTkhoVENMT1IyRUYyWDlWTHBoX3k2NzJlQW1SUnhRaTJKVdIB2gFBVV95cUxPdWtFcmFfVUp5MjFVUXBuX0NuN3ZZcGRaejJRUnNSRXFpbTUtUnN2R1dHV2tWZlNzbThPVElzU0tHRkluVmptVGo4dk1zS0haWVdzZmtQZE96bkR0dURrM185bjRLYXdfQlFVdTM4SGxLaUowbFR6TC00RnF1TUpzT3Z4WEc1bjExM2FTOHZXLW9pSXhzcHk1QURGal9hOUV4VFdlY01YdXZBalF5SGh5UnJUWHZnX3ppQy02c2JOcE54cnBDZFNFN3JCQVo2WTdrUTRrNS1LcEloZw?oc=5
+
+4. Market wrap: Top gainers and losers on NSE Nifty50 and BSE Sensex today - The Times of India
+   Source: The Times of India
+   Summary: Market wrap: Top gainers and losers on NSE Nifty50 and BSE Sensex today The Times of India
+   Link: https://news.google.com/rss/articles/CBMi_gFBVV95cUxPWG9wa29naENfTmhkUkRrTkJhRGZEVGJnaUNaTkZqdGM0azhaVl9JcW1rZ0M4cWFvRHJRc05XV3RHdXE1MUY4YlNseDZTV1cycVdPRFJ1WE16MnJHT3RJUm82QTEtR0RCSENIYS1WQ3RoMnNJV05wZGxtVUdBNVBGQnU1cEstelhaNlBWOTNfczQ2eUtqTjJOZG8tY0E1SEVfYU5JWlZub055SlNXdXBvRjVwaWtQZFNZZkppTTZFQmY4ZTllU2tJRHh1SVlsN1hJLXFSSW9Ob3FNU3pBb2FydDFjc2RHNXptbFBKV3B1Q05ndGJrSUlDbTBsYmRmQdIBgwJBVV95cUxOc2dqQUNsQ19mendpd3h6d1RzQTUzTTAwR0U2UVV2VUhxbkRMYXptZElQQWlMYTBZN19sMTdyMU9WTVNHM2E1bnlreXNFMmRLc2lCdHM1amd3cTJIRnh2SnU0V0NvcExTRFFxcGtjM2d4S1dOUkpXUkZsX0hMazl6SUxkdEJ3QVFYWF9Da29uV0Z0YktkQlkyUE1QRDEzRFNtaVNpQWRTUDV5ODFnbVdQMU1UQ01naUxEVmQwUTZuS0tfakpRaUxoRTJocWVGYVY2N1V0Y0prR0NPWE5NQ0dPUnNmbE5IQTZQMlAwN0N2TDlWS2xUalpyUElnRm5HcWNLZmJR?oc=5
+
+5. Sensex, Nifty gain for second straight session; Rs 5.7 lakh crore added to investor wealth in two days - Business Today
+   Source: Business Today
+   Summary: Sensex, Nifty gain for second straight session; Rs 5.7 lakh crore added to investor wealth in two days Business Today
+   Link: https://news.google.com/rss/articles/CBMi8AFBVV95cUxPbWFmRXhINHd4eksySWdWVy14RnFFaWlyNmFBbnUxN0IxVDFXbk45aGRWd25mbmx2MXdaalIyREVQUVNFa3JlVFdEUG5fZE54OG1xMVR5VEVabkVTLUFIUUUzeE5iRU5tNy1TbE9VMThlaTM4UG0wWVo1eTFfUlA3bEcwQld5UjVEU3B3ZUVkWDctSlhSSEo3MTlTa0JaVDVsUUEzT1ZlSmhUSlN4VnFxeHpnWEhZb1hfVG1TZEc2SUxnbjRJTWlmY3RQWTBpdkVJeVZlVU82Tm5pT3dVVFhGRE85Vk1mM09xN19yUVZmSHTSAfYBQVVfeXFMUHdwRGl1X1h2VzhtU3hObHc4NkZ4OE9qVm50cll1OHU5azRXQUNtejdZVVFxbVlSX1BDX040UE5xRHpYRkNVQm9vS1lKa3BfWk01WDUxZmZJWFpneXE2bktSVk5SelhiWEdBSWd3OUdMRlNxMDdkdDNYQnpaZEZrM2IxdVFlWnZIMlFib2NkSTJzTGUxRFY1cmtvZXFRZHZ1VWxRYVhMMV9UTjJBa1h5R2MyMUo0dy1oeFk0VEZXWFhsMFlNNUI0SDh1bG5KalY1OXhZV3dhNUZSdkdpWXE0T2p0VzJfWGhtOHhEVUtNZkdybl9HNy13?oc=5
+
+6. Nifty 50, Sensex Rise on Strong IT Rally as Falling Oil Prices Lift Market Sentiment - Dalal Street Investment Journal
+   Source: Dalal Street Investment Journal
+   Summary: Nifty 50, Sensex Rise on Strong IT Rally as Falling Oil Prices Lift Market Sentiment Dalal Street Investment Journal
+   Link: https://news.google.com/rss/articles/CBMizAFBVV95cUxPdGhRTU04WjhzQWVSOFd6RU5wTlFueHZkaEo3Z2JpMU0yNzhHaTFfLWVibGRadXhpTmZOanZXbjR4TWtmVW1EanlOMFZBOW5aYmZ3VDY4czZ5YmhFcVRFVC1vaXhFVGlwQ0dIOEstT0JScjg5bGNpZXk0STZYdVdfVkdLUXlaeTBmTmw3UzFreGloVlM0Z0J5YS14ZU9aZlBQMGViQkl1ckJQX2V1ckpJNG5tMDU4SkcxRm1scVRDdjQ5VlpiRzRRTWlYWkQ?oc=5
+
+7. IT Stocks Power Market Rally: Nifty Closes Above 24,175, Sensex Jumps 579 Points - Open Magazine
+   Source: Open Magazine
+   Summary: IT Stocks Power Market Rally: Nifty Closes Above 24,175, Sensex Jumps 579 Points Open Magazine
+   Link: https://news.google.com/rss/articles/CBMitAFBVV95cUxNU29CdnM4dHRyb0lRTVpsMU5aNUhrN1NfUEZyaDBsT0VydWpYclFRQ1JSWjRkcHBvaW94emJYSjlNZVhLTWM5dElZSHZkcWtYU2o4OUFXRXRFalZJbjZienF6SGtnbW42a1VOX2U3bFNsWVA1ajJLalpvaUlhck5idU5nRTVkejdaRFhTZkg5ekExMV8yY0VXam1Kczg3bkZaa251UG5ncmlsSE9KZWl3Tm5ZaW8?oc=5
+
+8. Share Market Today: Nifty 50, Bank Nifty | July 02, 2026 - Liquide Blog
+   Source: Liquide Blog
+   Summary: Share Market Today: Nifty 50, Bank Nifty | July 02, 2026 Liquide Blog
+   Link: https://news.google.com/rss/articles/CBMinAFBVV95cUxNckVGRVhiTHVGX3IycVNhaE8yb3V3aGU3QnpfSExoZ2txRDV4anpIZV90THViUmZFcmVBaE9LMnMwNU9rQUs5Q3VaT1hibUREWFBqbmhvTUZDQmZ4Y0c0RmloWkZKcmlESmdRVHQzX29KcFBpX2w5RzFEZU5qUmJqNUIxQUFTN3ZOekVRQmhXUEQzSGxfWl9VMmN6S3k?oc=5
+
+9. Nifty, Sensex Rise for a Second Day as IT Stocks Stage Sharp Rebound - HDFC Sky
+   Source: HDFC Sky
+   Summary: Nifty, Sensex Rise for a Second Day as IT Stocks Stage Sharp Rebound HDFC Sky
+   Link: https://news.google.com/rss/articles/CBMie0FVX3lxTE9oWGVFb1F5cHFfNEpTRTJaMlM5ajNlZXE0d1RlZlFlSnV4MDZkRXNvR3JhS0t5YmZOSHZwNnNfTDY5X3huVHZOc0tnaEFLTFEyLUpmSE95cnp0WFpzMFE1OWsyRDFvR0pWazVMdVdiR3B1YldtSk85QlBFZw?oc=5
+
+10. Indian Equities Extend Gains as Crude Prices Ease, IT Stocks Surge - rediff.com
+   Source: rediff.com
+   Summary: Indian Equities Extend Gains as Crude Prices Ease, IT Stocks Surge rediff.com
+   Link: https://news.google.com/rss/articles/CBMixAFBVV95cUxNMnRKTGJrZEFUSllYaFFlVm5DMFZwRlVpdDNJZlBSZUZIemxxdml6ZDVmX1c1eFFuemExbUU0SmVLMmJQbm1oWEtKUXFxblVOaVV0Vmw5bkJfeVpqTDBBUFkwZUdfUjY4eWlHZ1daTlByajhRWjVGR1U5c1NYSGRKZ2RjVnBYcFhyRVI5ZUNMUkVwQkFWbXJkWjI5MWpDZlkyclo5eUEzS1VVdDNEMk5Bd2NtNTRFc1Y3SkkxaElUNlJra1820gHHAUFVX3lxTE1jOGhaQVoyQTZfaG5WeFBoNi1ocjgxM0xtQkNXRE9UTktqLWFEbFlMNnNmd1NMRWdCeE81UU1LRGhQY1ByOWpud3hBSGJYaDVXcjdSNmZOWFBKZUpmM3F2S2hzWGpha1VKam40M0N3bDUtY2tySWNUX2NFQ3pPak9iZnFhckVULUk5WTRCSlNyTDhqRjMxMXpVelQyd3RBUnRfSjVFV21EZEZzNXJzWm9CMjBXZFVWend0N2xBZFFJd05iU1lnRmc?oc=5
+
+Auto-generated by your Indian stock market AI agent.
