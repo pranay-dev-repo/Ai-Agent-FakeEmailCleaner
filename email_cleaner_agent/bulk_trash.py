@@ -344,6 +344,8 @@ DOMAINS_TO_TRASH = [
     "nidohomefin.com",
     "itr.mail.codecademy.com",
     "webveda.com",
+    "engage.canva.com",
+    "engage.policybazaar.com",
 ]
 
 creds = Credentials(
